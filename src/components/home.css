@@ -1,0 +1,17 @@
+.text-on-image {
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    margin-left: -370px;
+    color: white;
+    font-size: 60px;
+  }
+
+  .btn-container-2{
+    margin-bottom: 50x;
+  }
+
+  /* .text-container-1 {
+    margin-bottom: 50px;  
+  } */
+

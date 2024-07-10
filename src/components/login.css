@@ -1,0 +1,11 @@
+
+
+body {
+    /* background-color: #508bfc; */
+    background-image: url('../assets/images/pexels-photo-129731.png');
+    background-size: cover;
+  }
+
+  .eye-icon{
+    margin-top: 4px;
+  }
