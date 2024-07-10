@@ -9,12 +9,12 @@ import NavDropdown from "react-bootstrap/NavDropdown";
 import { } from "react";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import Logo from "../assets/images/wologo.png";
+import Read from "../components/read";
 import Home from "./home";
 import Login from "./login";
 import Manager from "./manager";
 import Product from "./product";
 import Signup from "./signup";
-import FetchData from "./test";
 function NavBar() {
   
   return (
@@ -40,7 +40,7 @@ function NavBar() {
             >
               <Nav.Link href="/">Trang chủ</Nav.Link>
               {/* <CustomLink to="/">Pricing</CustomLink> */}           
-              <Nav.Link href="/product">Sản phẩm</Nav.Link>
+              <Nav.Link href="/read">Sản phẩm</Nav.Link>
               <Nav.Link href="/manager">Tư vấn</Nav.Link>
               <Nav.Link href="/test">Liên hệ</Nav.Link>
               <NavDropdown title="Danh mục sản phẩm" id="navbarScrollingDropdown">
@@ -83,7 +83,7 @@ function NavBar() {
             <Route exact path="/signup" element={<Signup />} />
             <Route exact path="/product" element={<Product />} />     
             <Route exact path="/manager" element={<Manager />} />      
-            <Route exact path="/test" element={<FetchData />} />               
+            <Route exact path="/read" element={<Read />} />               
           </Routes>
         </Router>
       </section>
