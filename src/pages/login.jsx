@@ -1,5 +1,4 @@
-// import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 import {
   MDBCard,
   MDBCardBody,
@@ -13,14 +12,15 @@ import {
 } from "mdb-react-ui-kit";
 import { useState } from "react";
 import { Button } from "react-bootstrap";
+import { auth } from "../config/firebase";
 
 import GoogleButton from "react-google-button";
 // import { IconButton } from "@material-ui/core";
 import "../components/login.css";
 function App() {
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const eye = <MDBIcon icon={"eye"} />;
-
   const eyeOff = <MDBIcon icon={"eye-slash"} />;
   const [icon, setIcon] = useState(eyeOff);
   const [passwordShown, setPasswordShown] = useState("password");
@@ -32,6 +32,14 @@ function App() {
     } else {
       setIcon(eyeOff);
       setPasswordShown("password");
+    }
+  };
+
+  const signIn = async () => {
+    try {
+      await createUserWithEmailAndPassword(auth, email, password);
+    } catch (err) {
+      console.error(err);
     }
   };
 
@@ -53,6 +61,7 @@ function App() {
                 id="formControlLg"
                 type="email"
                 size="lg"
+                onChange={(e) => setEmail(e.target.value)}
               />
               <MDBInputGroup>
                 <MDBInput
@@ -79,15 +88,16 @@ function App() {
                 label="Ghi nhớ mật khẩu"
               />
 
-              <Button>Login</Button>
+              <Button onClick={signIn}>Login</Button>
 
               <hr className="my-4" />
-              <GoogleButton style={{width:"100%",marginTop:'-10px'}}
+              <GoogleButton
+                style={{ width: "100%", marginTop: "-10px" }}
                 onClick={() => {
                   console.log("Google button clicked");
                 }}
               />
-              <p className="mb-0 text-center" style={{marginTop:'10px'}}>
+              <p className="mb-0 text-center" style={{ marginTop: "10px" }}>
                 Chưa có tài khoản?{" "}
                 <a href="#!" className="text-blue-50 fw-bold ">
                   Đăng ký
