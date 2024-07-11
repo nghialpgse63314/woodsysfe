@@ -1,13 +1,14 @@
-import { get, getDatabase, ref } from "firebase/database";
+import { get, getDatabase, ref, remove } from "firebase/database";
 import { useEffect, useState } from "react";
 import { Container, Table } from "react-bootstrap";
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import app from "../config/firebase";
 
-function Read() {
-  // const navigate = useNavigate();
 
-  let [fruitArray, setFruitArray] = useState([]);
+function UpdateRead() {
+  const navigate = useNavigate();
+
+  let [dataArray, setDataArray] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -15,13 +16,27 @@ function Read() {
       const dbRef = ref(db, "Products");
       const snapshot = await get(dbRef);
       if (snapshot.exists()) {
-        setFruitArray(Object.values(snapshot.val()));
+        const myData = snapshot.val();
+        const temporaryArray = Object.keys(myData).map((myFireId) => {
+          return {
+            ...myData[myFireId],
+            productId: myFireId,
+          };
+        });
+        setDataArray(temporaryArray);
       } else {
         alert("error");
       }
     };
     fetchData();
-  }, []);
+  });
+
+  const deleteFruit = async (productIdParam) => {
+    const db = getDatabase(app);
+    const dbRef = ref(db, "Products/" + productIdParam);
+    await remove(dbRef);
+    window.location.reload();
+  };
 
   return (
     <Container
@@ -32,43 +47,77 @@ function Read() {
         height: "100vh",
       }}
     >
-      <div>
-        <h1 className="text-center">This is fetching</h1>
-        <div>
-          <Table className="container w-75" bordered striped variant="dark">
-            <thead>
-              <tr>
-                <th>#</th>
-                <th>Image</th>
-                <th>Name</th>
-                <th>Price</th>
+      <h1>INVENTORY</h1>
+      <Table bordered striped variant="dark">
+        <thead>
+          <tr>
+        
+            <th>#</th>
+            <th>Image</th>
+            <th>Name</th>
+            <th>Price</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          {dataArray.map((item, index) => {
+            return (
+              <tr key={index}>           
+                <td>{index + 1}</td>
+                <td>{item.image}</td>
+                <td>{item.price}</td>
+                <td>{item.productName}</td>
+                <button
+                  className="button1"
+                  onClick={() => navigate(`/updateWrite/${item.productId}`)}
+                >
+                  {" "}
+                  UPDATE
+                </button>
+                <button
+                  className="button1"
+                  onClick={() => deleteFruit(item.productId)}
+                >
+                  {" "}
+                  DELETE
+                </button>
               </tr>
-            </thead>
-
-            <tbody>
-              {fruitArray.map((item, index) => {
-                return (
-                  <tr key={index}>
-                    <td>{index + 1}</td>
-                    <td>{item.image}</td>
-                    <td>{item.price}</td>
-                    <td>{item.productName}</td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </Table>
-        </div>
-        {/* <button className="button1" onClick={() => navigate("/updateread")}>
-            GO UPDATE READ
-          </button>{" "}
-          <br />
-          <button className="button1" onClick={() => navigate("/")}>
-            GO HOMEPAGE
-          </button> */}
-      </div>
+            );
+          })}
+        </tbody>
+      </Table>
+      {/* {fruitArray.map((item, index) => (
+            <>
+              <li key={index}>
+               {item.image} {item.name}: {item.price} : {item.productId}
+             
+                <button
+                  className="button1"
+                  onClick={ () => navigate(`/updateWrite/${item.productId}`)}
+                >
+                  UPDATE
+                </button>
+                <button
+                  className="button1"
+                  onClick={() => deleteFruit(item.productId)}
+                >
+                  DELETE
+                </button>
+              </li>
+            </>
+          ))} */}
+      <button className="button1" onClick={() => navigate("/")}>
+        GO HOMEPAGE
+      </button>{" "}
+      <br />
+      {/* <button className="button1" onClick={() => navigate("/read")}>
+          GO READ PAGE
+        </button> */}
+      <button className="button1" onClick={() => navigate("/add")}>
+        ADD DATA
+      </button>
     </Container>
   );
 }
 
-export default Read;
+export default UpdateRead;

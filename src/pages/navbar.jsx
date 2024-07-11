@@ -9,7 +9,8 @@ import NavDropdown from "react-bootstrap/NavDropdown";
 import { } from "react";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import Logo from "../assets/images/wologo.png";
-import Read from "../components/read";
+import Add from "../components/adddata";
+import UpdateRead from "../components/read";
 import Home from "./home";
 import Login from "./login";
 import Manager from "./manager";
@@ -40,9 +41,9 @@ function NavBar() {
             >
               <Nav.Link href="/">Trang chủ</Nav.Link>
               {/* <CustomLink to="/">Pricing</CustomLink> */}           
-              <Nav.Link href="/read">Sản phẩm</Nav.Link>
+              <Nav.Link href="/product">Sản phẩm</Nav.Link>
               <Nav.Link href="/manager">Tư vấn</Nav.Link>
-              <Nav.Link href="/test">Liên hệ</Nav.Link>
+              <Nav.Link href="/read">Manager</Nav.Link>
               <NavDropdown title="Danh mục sản phẩm" id="navbarScrollingDropdown">
                 <NavDropdown.Item href="#action3">1</NavDropdown.Item>
                 <NavDropdown.Item href="#action4">2</NavDropdown.Item>
@@ -83,7 +84,8 @@ function NavBar() {
             <Route exact path="/signup" element={<Signup />} />
             <Route exact path="/product" element={<Product />} />     
             <Route exact path="/manager" element={<Manager />} />      
-            <Route exact path="/read" element={<Read />} />               
+            <Route exact path="/read" element={<UpdateRead />} />        
+            <Route exact path="/add" element={<Add />} />       
           </Routes>
         </Router>
       </section>
