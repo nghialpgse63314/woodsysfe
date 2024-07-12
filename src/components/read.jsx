@@ -67,14 +67,14 @@ function UpdateRead() {
                 <td>{item.image}</td>
                 <td>{item.price}</td>
                 <td>{item.productName}</td>
-                <button
+                <button 
                   className="button1"
                   onClick={() => navigate(`/updateWrite/${item.productId}`)}
                 >
-                  {" "}
+           
                   UPDATE
                 </button>
-                <button
+                <button 
                   className="button1"
                   onClick={() => deleteFruit(item.productId)}
                 >

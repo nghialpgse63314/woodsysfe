@@ -7,7 +7,7 @@ import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 // import { Link, useMatch, useResolvedPath } from "react-router-dom";
 import { } from "react";
-import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
+import { BrowserRouter, Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import Logo from "../assets/images/wologo.png";
 import Add from "../components/adddata";
 import UpdateRead from "../components/read";
@@ -15,6 +15,7 @@ import Home from "./home";
 import Login from "./login";
 import Manager from "./manager";
 import Product from "./product";
+import ProfilePage from "./profile";
 import Signup from "./signup";
 function NavBar() {
   
@@ -45,8 +46,9 @@ function NavBar() {
               <Nav.Link href="/manager">Tư vấn</Nav.Link>
               <Nav.Link href="/read">Manager</Nav.Link>
               <NavDropdown title="Danh mục sản phẩm" id="navbarScrollingDropdown">
-                <NavDropdown.Item href="#action3">1</NavDropdown.Item>
-                <NavDropdown.Item href="#action4">2</NavDropdown.Item>
+                <NavDropdown.Item href="/profile">profile</NavDropdown.Item>
+                <BrowserRouter> <NavDropdown.Item href="#">asd</NavDropdown.Item></BrowserRouter>
+               
                 <NavDropdown.Divider />
                 <NavDropdown.Item href="#action5">combo</NavDropdown.Item>
               </NavDropdown>
@@ -85,7 +87,8 @@ function NavBar() {
             <Route exact path="/product" element={<Product />} />     
             <Route exact path="/manager" element={<Manager />} />      
             <Route exact path="/read" element={<UpdateRead />} />        
-            <Route exact path="/add" element={<Add />} />       
+            <Route exact path="/add" element={<Add />} />   
+            <Route exact path="/profile" element={<ProfilePage />} />     
           </Routes>
         </Router>
       </section>

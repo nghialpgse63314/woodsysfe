@@ -1,9 +1,12 @@
-// import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 import "bootstrap-icons/font/bootstrap-icons.css";
+import { getDatabase, push, ref, set } from "firebase/database";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import app from "../config/firebase";
+
 
 import {
-  MDBBtn,
   MDBCard,
   MDBCardBody,
   MDBCardImage,
@@ -12,17 +15,23 @@ import {
   MDBIcon,
   MDBInput,
   MDBInputGroup,
-  MDBRow,
+  MDBRow
 } from "mdb-react-ui-kit";
-import { useState } from "react";
+import { Button } from "react-bootstrap";
 import wood from "../assets/images/3.png";
 import "../components/style.css";
 function App() {
+   const navigate = useNavigate();
+  const [inputValue1,setInputValue1] = useState("");
+  const [inputValue2,setInputValue2] = useState("");
+  const [inputValue3,setInputValue3] = useState("");
+  const [inputValue4,setInputValue4] = useState("");
+
   const [password, setPassword] = useState("");
-   const eyes = <MDBIcon icon={'eye'} />;
+  const eyes = <MDBIcon icon={'eye'} />;
   const eyeOff = <MDBIcon icon={'eye-slash'} />;
   const [icon, setIcon] = useState(eyeOff);
- const [passwordShown, setPasswordShown] = useState("password");
+  const [passwordShown, setPasswordShown] = useState("password");
   const togglePasswordVisiblity = () => {
     // setPasswordShown(passwordShown ? false : true);
     if (passwordShown === "password") {
@@ -33,6 +42,23 @@ function App() {
       setPasswordShown("password");
     }
   };
+
+  const saveData = async () => {
+    const db = getDatabase(app);
+    const newDocRef = push(ref(db, "Customers"));
+    set(newDocRef, {
+        name: inputValue1,
+        phone: inputValue2,
+        address: inputValue3,
+        email: inputValue4,
+        password: password
+    }).then( () => {
+        alert("data save successfully")
+    }).catch((error) => {
+        alert("error", error.message)
+    })
+    window.location.reload(navigate("/"));
+}
 
   return (
     <MDBContainer style={{width: 1500}}>
@@ -55,6 +81,7 @@ function App() {
                     size="lg"
                     id="form1"
                     type="text"
+                    value={inputValue1} onChange={(e) => setInputValue1(e.target.value)}
                   />
                 </MDBCol>
 
@@ -65,16 +92,27 @@ function App() {
                     size="lg"
                     id="form2"
                     type="number"
+                    value={inputValue2} onChange={(e) => setInputValue2(e.target.value)}
                   />
                 </MDBCol>
               </MDBRow>
               <MDBInput
+                wrapperClass="mb-4"
+                label="Địa chỉ"
+                size="lg"
+                id="form6"
+                type="text"
+                style={{ width: 475 }}
+                value={inputValue3} onChange={(e) => setInputValue3(e.target.value)}
+              />
+               <MDBInput
                 wrapperClass="mb-4"
                 label="Email"
                 size="lg"
                 id="form6"
                 type="text"
                 style={{ width: 475 }}
+                value={inputValue4} onChange={(e) => setInputValue4(e.target.value)}
               />
               <MDBRow>
                 <MDBCol md="6">
@@ -106,9 +144,10 @@ function App() {
                 </MDBCol>
               </MDBRow>
 
-              <MDBBtn className="mb-4" size="lg">
+              {/* <MDBBtn className="mb-4" size="lg" onClick={saveData}>
                 Đăng ký
-              </MDBBtn>
+              </MDBBtn> */}
+                <Button className="mb-4" size="lg" onClick={saveData}>Đăng ký</Button>
               <p className="mb-0 text-center">
                 Đã có tài khoản{" "}
                 <a href="#!" className="text-blue-50 fw-bold ">

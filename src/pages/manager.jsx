@@ -1,6 +1,6 @@
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
-import Sidebar from "../components/sidebar.jsx";
+// import Sidebar from "../components/sidebar.jsx";
 export default function Manager() {
   return (
     <Container
@@ -12,10 +12,10 @@ export default function Manager() {
       }}
     >
      <div>
-     <Sidebar />
+     {/* <Sidebar /> */}
      </div>
-     <Nav.Link href="/product">Product</Nav.Link>
-     
+     {/* <Nav.Link href="/product">Product</Nav.Link> */}
+     <Nav.Link href="/read">Product</Nav.Link>
  
     </Container>
     

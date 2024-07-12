@@ -1,16 +1,17 @@
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import {
-    CDBSidebar,
-    CDBSidebarContent,
-    CDBSidebarHeader,
-    CDBSidebarMenu,
-    CDBSidebarMenuItem,
+  CDBSidebar,
+  CDBSidebarContent,
+  CDBSidebarHeader,
+  CDBSidebarMenu,
+  CDBSidebarMenuItem,
 } from 'cdbreact';
 import { } from 'react';
 import { NavLink } from 'react-router-dom';
 const Sidebar = () => {
   return (
     <div style={{ display: 'flex', height: '80vh', overflow: 'scroll initial' }}>
+     
       <CDBSidebar textColor="#fff" backgroundColor="#333">
         <CDBSidebarHeader prefix={<i className="fa fa-bars fa-large"></i>}>
           <a href="/" className="text-decoration-none" style={{ color: 'inherit' }}>
@@ -23,7 +24,7 @@ const Sidebar = () => {
             <NavLink exact to="/" activeClassName="activeClicked">
               <CDBSidebarMenuItem icon="columns">Dashboard</CDBSidebarMenuItem>
             </NavLink>
-            <NavLink exact to="/tables" activeClassName="activeClicked">
+            <NavLink exact to="/read" activeClassName="activeClicked">
               <CDBSidebarMenuItem icon="table">Kho</CDBSidebarMenuItem>
             </NavLink>
             <NavLink exact to="/product" activeClassName="activeClicked">
