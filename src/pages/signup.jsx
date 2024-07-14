@@ -1,11 +1,6 @@
-
 import "bootstrap-icons/font/bootstrap-icons.css";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 import { getDatabase, push, ref, set } from "firebase/database";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import app from "../config/firebase";
-
-
 import {
   MDBCard,
   MDBCardBody,
@@ -15,27 +10,31 @@ import {
   MDBIcon,
   MDBInput,
   MDBInputGroup,
-  MDBRow
+  MDBRow,
 } from "mdb-react-ui-kit";
+import { useState } from "react";
 import { Button } from "react-bootstrap";
+
+import { FaEye, FaEyeSlash } from "react-icons/fa";
+
 import wood from "../assets/images/3.png";
 import "../components/style.css";
+import app, { auth } from "../config/firebase";
 function App() {
-   const navigate = useNavigate();
-  const [inputValue1,setInputValue1] = useState("");
-  const [inputValue2,setInputValue2] = useState("");
-  const [inputValue3,setInputValue3] = useState("");
-  const [inputValue4,setInputValue4] = useState("");
-
+  //  const navigate = useNavigate();
+  const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [address, setAddress] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const eyes = <MDBIcon icon={'eye'} />;
-  const eyeOff = <MDBIcon icon={'eye-slash'} />;
+  const eye = <FaEye />;
+  const eyeOff = <FaEyeSlash />;
   const [icon, setIcon] = useState(eyeOff);
   const [passwordShown, setPasswordShown] = useState("password");
   const togglePasswordVisiblity = () => {
-    // setPasswordShown(passwordShown ? false : true);
+    setPasswordShown(passwordShown ? false : true);
     if (passwordShown === "password") {
-      setIcon(eyes);
+      setIcon(eye);
       setPasswordShown("text");
     } else {
       setIcon(eyeOff);
@@ -43,25 +42,54 @@ function App() {
     }
   };
 
-  const saveData = async () => {
-    const db = getDatabase(app);
-    const newDocRef = push(ref(db, "Customers"));
-    set(newDocRef, {
-        name: inputValue1,
-        phone: inputValue2,
-        address: inputValue3,
-        email: inputValue4,
-        password: password
-    }).then( () => {
-        alert("data save successfully")
-    }).catch((error) => {
-        alert("error", error.message)
-    })
-    window.location.reload(navigate("/"));
-}
+  //   const saveData = async () => {
+  //     const db = getDatabase(app);
+  //     const newDocRef = push(ref(db, "Customers"));
+  //     set(newDocRef, {
+  //         name: name,
+  //         phone: phone,
+  //         address: address,
+  //         email: email,
+  //         password: password
+  //     }).then( () => {
+  //         alert("data save successfully")
+  //     }).catch((error) => {
+  //         alert("error", error.message)
+  //     })
+  //     window.location.reload(navigate("/"));
+  // }
+
+  const register = async () => {
+    try {
+      const user = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password,
+      );
+      const db = getDatabase(app);
+      const newDocRef = push(ref(db, "Customers/"));
+      set(newDocRef, {
+          name: name,
+          phone: phone,
+          address: address,
+          email: email,
+          password: password
+      }).then( () => {
+          alert("data save successfully")
+       
+      }).catch((error) => {
+          alert("error", error.message)
+      })
+      alert("Account created successfully!");
+      
+      console.log(user);
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
 
   return (
-    <MDBContainer style={{width: 1500}}>
+    <MDBContainer style={{ width: 1500 }}>
       <MDBCard className="text-black m-5" style={{ borderRadius: "25px" }}>
         <MDBCardBody className="px-4">
           <MDBRow>
@@ -72,7 +100,7 @@ function App() {
             >
               <p className="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">
                 Tạo tài khoản
-              </p>
+              </p>  
               <MDBRow>
                 <MDBCol md="6">
                   <MDBInput
@@ -81,7 +109,8 @@ function App() {
                     size="lg"
                     id="form1"
                     type="text"
-                    value={inputValue1} onChange={(e) => setInputValue1(e.target.value)}
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
                   />
                 </MDBCol>
 
@@ -92,7 +121,8 @@ function App() {
                     size="lg"
                     id="form2"
                     type="number"
-                    value={inputValue2} onChange={(e) => setInputValue2(e.target.value)}
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value)}
                   />
                 </MDBCol>
               </MDBRow>
@@ -103,16 +133,18 @@ function App() {
                 id="form6"
                 type="text"
                 style={{ width: 475 }}
-                value={inputValue3} onChange={(e) => setInputValue3(e.target.value)}
+                value={address}
+                onChange={(e) => setAddress(e.target.value)}
               />
-               <MDBInput
+              <MDBInput
                 wrapperClass="mb-4"
                 label="Email"
                 size="lg"
                 id="form6"
                 type="text"
                 style={{ width: 475 }}
-                value={inputValue4} onChange={(e) => setInputValue4(e.target.value)}
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
               />
               <MDBRow>
                 <MDBCol md="6">
@@ -122,35 +154,28 @@ function App() {
                       label="Mật khẩu"
                       size="lg"
                       id="form1"
+                      style={{ width: 475 }}
                       type={passwordShown}
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
                     >
-                      <MDBIcon className="eye-icon" onClick={togglePasswordVisiblity}>
+                      <MDBIcon
+                        className="eye-icon"
+                        onClick={togglePasswordVisiblity}
+                      >
                         {icon}
                       </MDBIcon>
                     </MDBInput>
                   </MDBInputGroup>
                 </MDBCol>
-
-                <MDBCol md="6">
-                  <MDBInput
-                    wrapperClass="mb-4"
-                    label="Xác nhận mật khẩu"
-                    size="lg"
-                    id="form2"
-                    type="password"
-                  ></MDBInput>
-                </MDBCol>
               </MDBRow>
 
-              {/* <MDBBtn className="mb-4" size="lg" onClick={saveData}>
-                Đăng ký
-              </MDBBtn> */}
-                <Button className="mb-4" size="lg" onClick={saveData}>Đăng ký</Button>
+              <Button className="mb-4" size="lg" onClick={register}>
+               Đăng ký          
+              </Button>
               <p className="mb-0 text-center">
                 Đã có tài khoản{" "}
-                <a href="#!" className="text-blue-50 fw-bold ">
+                <a href="/login" className="text-blue-50 fw-bold ">
                   Đăng nhập
                 </a>
               </p>

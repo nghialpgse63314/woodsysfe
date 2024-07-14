@@ -1,25 +1,26 @@
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { signInWithEmailAndPassword, signOut } from "firebase/auth";
 import {
   MDBCard,
   MDBCardBody,
   MDBCheckbox,
   MDBCol,
   MDBContainer,
+  MDBIcon,
   MDBInput,
   MDBInputGroup,
-  MDBRow,
+  MDBRow
 } from "mdb-react-ui-kit";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
 import GoogleButton from "react-google-button";
 import { auth } from "../config/firebase";
 // import { IconButton } from "@material-ui/core";
-import { MDBIcon } from "mdbreact";
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import "../components/login.css";
 function App() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [user, setUser] = useState({});
   const eye = <FaEye/>;
   const eyeOff = <FaEyeSlash/>;
   const [icon, setIcon] = useState(eyeOff);
@@ -35,17 +36,46 @@ function App() {
     }
   };
 
+  useEffect(() => {
+    auth.onAuthStateChanged(async (user) => {
+      if (user) {
+        setUser(user);
+      }
+    });
+  }, [user]);
+
+
+  // onAuthStateChanged(auth, (currentUser) => {
+  //   setUser(currentUser);
+  // });
+
+  
+
   const signIn = async () => {
     try {
-      await createUserWithEmailAndPassword(auth, email, password);
+      await signInWithEmailAndPassword(auth, email, password);
     } catch (err) {
       console.error(err);
     }
   };
 
+
+  const logout = async () => {
+    try {
+      await signOut(auth);
+    } catch (err) {
+      console.error(err);
+    }
+    window.location.reload();
+  };
+
+
   return (
     <MDBContainer fluid>
       <MDBRow className="d-flex justify-content-center align-items-center h-100">
+      <h4> User Logged In: </h4>
+      {user?.email}
+     
         <MDBCol col="12">
           <MDBCard
             className="bg-white my-5 mx-auto"
@@ -90,7 +120,7 @@ function App() {
               />
 
               <Button onClick={signIn}>Login</Button>
-
+              <Button onClick={logout}>Logout</Button>
               <hr className="my-4" />
               <GoogleButton
                 style={{ width: "100%", marginTop: "-10px" }}

@@ -4,6 +4,7 @@ import { Container, Table } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import app from "../config/firebase";
 
+import { auth } from "../config/firebase";
 
 function UpdateRead() {
   const navigate = useNavigate();
@@ -30,6 +31,14 @@ function UpdateRead() {
     };
     fetchData();
   });
+  const [user, setUser] = useState({});
+  useEffect(() => {
+    auth.onAuthStateChanged(async (user) => {
+      if (user) {
+        setUser(user);
+      }
+    });
+  }, [user]);
 
   const deleteFruit = async (productIdParam) => {
     const db = getDatabase(app);
@@ -47,7 +56,10 @@ function UpdateRead() {
         height: "100vh",
       }}
     >
+      
       <h1>INVENTORY</h1>
+      <h4> User Logged In: </h4>
+      {user?.email}
       <Table bordered striped variant="dark">
         <thead>
           <tr>

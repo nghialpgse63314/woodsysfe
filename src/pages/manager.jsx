@@ -1,8 +1,11 @@
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 // import Sidebar from "../components/sidebar.jsx";
+
 export default function Manager() {
+  
   return (
+    
     <Container
       fluid
       style={{
@@ -11,6 +14,7 @@ export default function Manager() {
         height: "500vh",
       }}
     >
+     
      <div>
      {/* <Sidebar /> */}
      </div>
