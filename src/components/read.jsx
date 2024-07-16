@@ -70,6 +70,11 @@ function UpdateRead() {
             <th>Image</th>
             <th>Name</th>
             <th>Price</th>
+            <th>Width</th>
+            <th>Length</th>
+            <th>Thickness</th>
+            <th>Description</th>
+
             <th></th>
           </tr>
         </thead>
@@ -81,9 +86,13 @@ function UpdateRead() {
                 <td>{item.image}</td>
                 <td>{item.price}</td>
                 <td>{item.productName}</td>
+                <td>{item.width}</td>
+                <td>{item.length}</td>
+                <td>{item.thickness}</td>
+                <td>{item.description}</td>
                 <button 
                   className="button1"
-                  onClick={() => navigate(`/updateWrite/${item.productId}`)}
+                  onClick={() => navigate(`/updatewrite/${item.productId}`)}
                 >
            
                   UPDATE

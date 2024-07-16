@@ -19,6 +19,7 @@ import {
 import Logo from "../assets/images/wologo.png";
 import Add from "../components/adddata";
 import UpdateRead from "../components/read";
+import UpdateWrite from "../components/updateWrite";
 import { auth } from "../config/firebase";
 import Home from "./home";
 import Login from "./login";
@@ -151,6 +152,7 @@ function NavBar() {
             <Route exact path="/read" element={<UpdateRead />} />
             <Route exact path="/add" element={<Add />} />
             <Route exact path="/profile" element={<ProfilePage />} />
+            <Route path="/updatewrite/:firebaseId" element={ <UpdateWrite /> } />
           </Routes>
         </Router>
       </section>
