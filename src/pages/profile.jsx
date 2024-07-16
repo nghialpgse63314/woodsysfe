@@ -1,25 +1,53 @@
+// import { get, getDatabase, ref } from "firebase/database";
+  import { child, get, getDatabase, ref } from "firebase/database";
 import {
-    MDBBreadcrumb,
-    MDBBreadcrumbItem,
-    MDBCard,
-    MDBCardBody,
-    MDBCardImage,
-    MDBCardText,
-    MDBCol,
-    MDBContainer,
-    MDBRow
-} from 'mdb-react-ui-kit';
-import { } from 'react';
+  MDBBreadcrumb,
+  MDBBreadcrumbItem,
+  MDBCard,
+  MDBCardBody,
+  MDBCardImage,
+  MDBCardText,
+  MDBCol,
+  MDBContainer,
+  MDBRow,
+} from "mdb-react-ui-kit";
+
+import { useEffect } from "react";
 import { Button } from "react-bootstrap";
+import app, { auth } from "../config/firebase";
 export default function ProfilePage() {
+  const displayName = document.getElementById("displayName");
+  const displayAddress = document.getElementById("displayAddress");
+  const displayEmail = document.getElementById("displayEmail");
+  const displayPhone = document.getElementById("displayPhone");
+
+
+  useEffect(() => {
+    auth.onAuthStateChanged(async (user) => {
+      const db = getDatabase(app);
+      const dbRef = ref(db, "Customers");
+      const snap =  await get(child(dbRef, `Customers/${user.uid}`));
+        console.log(snap.val());
+      if (snap.exists) {
+        user.providerData.forEach((user) => {
+          displayName.innerHTML = user.displayName;
+          displayEmail.innerHTML = user.email;
+          displayAddress.innerHTML = user.address;
+          displayPhone.innerHTML = user.phone;
+        });
+      }
+    });
+  });
+
   return (
-    <section style={{ backgroundColor: '#eee' }}>
+    
+    <section style={{ backgroundColor: "#eee" }}>
       <MDBContainer className="py-5">
         <MDBRow>
           <MDBCol>
             <MDBBreadcrumb className="bg-light rounded-3 p-3 mb-4">
               <MDBBreadcrumbItem>
-                <a href='/'>Home</a>
+                <a href="/">Home</a>
               </MDBBreadcrumbItem>
               <MDBBreadcrumbItem>
                 <a href="#">User</a>
@@ -37,12 +65,13 @@ export default function ProfilePage() {
                   src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp"
                   alt="avatar"
                   className="rounded-circle"
-                  style={{ width: '150px' }}
-                  fluid />
+                  style={{ width: "150px" }}
+                  fluid
+                />
               </MDBCardBody>
             </MDBCard>
-
           </MDBCol>
+
           <MDBCol lg="8">
             <MDBCard className="mb-4">
               <MDBCardBody>
@@ -51,7 +80,10 @@ export default function ProfilePage() {
                     <MDBCardText>Họ và tên</MDBCardText>
                   </MDBCol>
                   <MDBCol sm="9">
-                    <MDBCardText className="text-muted">Johnatan Smith</MDBCardText>
+                    <MDBCardText
+                      className="text-muted"
+                      id="displayName"
+                    ></MDBCardText>
                   </MDBCol>
                 </MDBRow>
                 <hr />
@@ -60,7 +92,10 @@ export default function ProfilePage() {
                     <MDBCardText>Email</MDBCardText>
                   </MDBCol>
                   <MDBCol sm="9">
-                    <MDBCardText className="text-muted">example@example.com</MDBCardText>
+                    <MDBCardText
+                      className="text-muted"
+                      id="displayEmail"
+                    ></MDBCardText>
                   </MDBCol>
                 </MDBRow>
                 <hr />
@@ -69,12 +104,15 @@ export default function ProfilePage() {
                     <MDBCardText>Số điện thoại</MDBCardText>
                   </MDBCol>
                   <MDBCol sm="9">
-                    <MDBCardText className="text-muted">123456789</MDBCardText>
+                    <MDBCardText
+                      className="text-muted"
+                      id="displayPhone"
+                    ></MDBCardText>
                   </MDBCol>
                 </MDBRow>
                 <hr />
                 <MDBRow>
-                <MDBCol sm="3">
+                  <MDBCol sm="3">
                     <MDBCardText>Chức vụ</MDBCardText>
                   </MDBCol>
                   <MDBCol sm="9">
@@ -87,16 +125,22 @@ export default function ProfilePage() {
                     <MDBCardText>Địa chỉ</MDBCardText>
                   </MDBCol>
                   <MDBCol sm="9">
-                    <MDBCardText className="text-muted">Bay Area, San Francisco, CA</MDBCardText>
+                    <MDBCardText
+                      className="text-muted"
+                      id="displayAddress"
+                    ></MDBCardText>
                   </MDBCol>
                 </MDBRow>
               </MDBCardBody>
             </MDBCard>
-            <Button className="mb-4" size="lg" >Edit</Button>
-
+            <Button className="mb-4" size="lg">
+              Edit
+            </Button>
+            <Button className="mb-4" size="lg">
+              Logout
+            </Button>
           </MDBCol>
         </MDBRow>
-       
       </MDBContainer>
     </section>
   );

@@ -10,7 +10,7 @@ import {
   MDBInputGroup,
   MDBRow
 } from "mdb-react-ui-kit";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Button } from "react-bootstrap";
 import GoogleButton from "react-google-button";
 import { auth } from "../config/firebase";
@@ -20,7 +20,7 @@ import "../components/login.css";
 function App() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [user, setUser] = useState({});
+  // const [user, setUser] = useState({});
   const eye = <FaEye/>;
   const eyeOff = <FaEyeSlash/>;
   const [icon, setIcon] = useState(eyeOff);
@@ -36,13 +36,13 @@ function App() {
     }
   };
 
-  useEffect(() => {
-    auth.onAuthStateChanged(async (user) => {
-      if (user) {
-        setUser(user);
-      }
-    });
-  }, [user]);
+  // useEffect(() => {
+  //   auth.onAuthStateChanged(async (user) => {
+  //     if (user) {
+  //       setUser(user);
+  //     }
+  //   });
+  // }, [user]);
 
 
   // onAuthStateChanged(auth, (currentUser) => {
@@ -73,9 +73,9 @@ function App() {
   return (
     <MDBContainer fluid>
       <MDBRow className="d-flex justify-content-center align-items-center h-100">
-      <h4> User Logged In: </h4>
+      {/* <h4> User Logged In: </h4>
       {user?.email}
-     
+      */}
         <MDBCol col="12">
           <MDBCard
             className="bg-white my-5 mx-auto"

@@ -31,6 +31,8 @@ function UpdateRead() {
     };
     fetchData();
   });
+
+  //get current user
   const [user, setUser] = useState({});
   useEffect(() => {
     auth.onAuthStateChanged(async (user) => {
