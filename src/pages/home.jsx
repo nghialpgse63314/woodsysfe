@@ -1,7 +1,7 @@
 import { Button, Card, Col, Image, Row } from "react-bootstrap";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
-import AI from "../assets/images/aidetect.png";
+import AI from "../assets/images/Untitledai.png";
 import Ash from "../assets/images/american-white-ash-wood.png";
 import banner from "../assets/images/banner.png";
 import Cherry from "../assets/images/cherry-wood.png";
@@ -82,7 +82,7 @@ export default function Home() {
           AI
         </h1>
         <h5 style={{ color: "#2596be", textAlign: "center" }}>
-          WOODSYS là đơn vị áp dụng công nghệ AI vào kiểm tra chất lượng sản
+          WOODSYS ứng dụng công nghệ AI vào công đoạn kiểm tra chất lượng sản
           phẩm
         </h5>
         <Row className="text-center">

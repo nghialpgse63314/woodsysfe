@@ -41,6 +41,13 @@
     position: absolute;
     top: 12%;
     right: 3%;
+  
+}
+
+.eye-icon-signup{
+  position: absolute;
+  top: 12%;
+  left: 100%;
 }
   i:hover {
     color: #00fcb6;

@@ -42,7 +42,7 @@ function UpdateRead() {
     });
   }, [user]);
 
-  const deleteFruit = async (productIdParam) => {
+  const deleteProduct = async (productIdParam) => {
     const db = getDatabase(app);
     const dbRef = ref(db, "Products/" + productIdParam);
     await remove(dbRef);
@@ -60,12 +60,16 @@ function UpdateRead() {
     >
       
       <h1>INVENTORY</h1>
-      <h4> User Logged In: </h4>
-      {user?.email}
+      <h4> User Logged In:{user?.email} </h4>
+      <button className="button1" onClick={() => navigate("/add")}>
+        ADD DATA
+      </button>
+      <button className="button1" onClick={() => navigate("/")}>
+        GO HOMEPAGE
+      </button>{" "}
       <Table bordered striped variant="dark">
         <thead>
           <tr>
-        
             <th>#</th>
             <th>Image</th>
             <th>Name</th>
@@ -74,7 +78,6 @@ function UpdateRead() {
             <th>Length</th>
             <th>Thickness</th>
             <th>Description</th>
-
             <th></th>
           </tr>
         </thead>
@@ -90,16 +93,16 @@ function UpdateRead() {
                 <td>{item.length}</td>
                 <td>{item.thickness}</td>
                 <td>{item.description}</td>
-                <button 
+                <button  style={{width:"80px"}}
                   className="button1"
                   onClick={() => navigate(`/updatewrite/${item.productId}`)}
                 >
            
                   UPDATE
                 </button>
-                <button 
+                <button style={{width:"80px"}}
                   className="button1"
-                  onClick={() => deleteFruit(item.productId)}
+                  onClick={() => deleteProduct(item.productId)}
                 >
                   {" "}
                   DELETE
@@ -109,36 +112,12 @@ function UpdateRead() {
           })}
         </tbody>
       </Table>
-      {/* {fruitArray.map((item, index) => (
-            <>
-              <li key={index}>
-               {item.image} {item.name}: {item.price} : {item.productId}
-             
-                <button
-                  className="button1"
-                  onClick={ () => navigate(`/updateWrite/${item.productId}`)}
-                >
-                  UPDATE
-                </button>
-                <button
-                  className="button1"
-                  onClick={() => deleteFruit(item.productId)}
-                >
-                  DELETE
-                </button>
-              </li>
-            </>
-          ))} */}
-      <button className="button1" onClick={() => navigate("/")}>
-        GO HOMEPAGE
-      </button>{" "}
+
       <br />
       {/* <button className="button1" onClick={() => navigate("/read")}>
           GO READ PAGE
         </button> */}
-      <button className="button1" onClick={() => navigate("/add")}>
-        ADD DATA
-      </button>
+   
     </Container>
   );
 }

@@ -14,14 +14,14 @@ import {
 } from "mdb-react-ui-kit";
 import { useState } from "react";
 import { Button } from "react-bootstrap";
-
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-
+import { useNavigate } from "react-router-dom";
 import wood from "../assets/images/3.png";
 import "../components/style.css";
 import app, { auth } from "../config/firebase";
 function App() {
-  //  const navigate = useNavigate();
+  const navigate = useNavigate();
+  const [validated, setValidated] = useState(false);
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [address, setAddress] = useState("");
@@ -40,6 +40,17 @@ function App() {
       setIcon(eyeOff);
       setPasswordShown("password");
     }
+  };
+
+  
+  const handleSubmit = (event) => {
+    const form = event.currentTarget;
+    if (form.checkValidity() === false) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+
+    setValidated(true);
   };
 
   //   const saveData = async () => {
@@ -81,7 +92,7 @@ function App() {
           alert("error", error.message)
       })
       alert("Account created successfully!");
-      
+      navigate("/");
       console.log(user);
     } catch (error) {
       console.log(error.message);
@@ -89,9 +100,9 @@ function App() {
   };
 
   return (
-    <MDBContainer style={{ width: 1500 }}>
+    <MDBContainer style={{ width: 1500 }} >
       <MDBCard className="text-black m-5" style={{ borderRadius: "25px" }}>
-        <MDBCardBody className="px-4">
+        <MDBCardBody className="px-4" noValidate validated={validated} onSubmit={handleSubmit}>
           <MDBRow>
             <MDBCol
               md="10"
@@ -104,6 +115,7 @@ function App() {
               <MDBRow>
                 <MDBCol md="6">
                   <MDBInput
+                    hasValidation
                     wrapperClass="mb-4"
                     label="Họ và tên"
                     size="lg"
@@ -113,7 +125,7 @@ function App() {
                     onChange={(e) => setName(e.target.value)}
                   />
                 </MDBCol>
-
+            
                 <MDBCol md="6">
                   <MDBInput
                     wrapperClass="mb-4"
@@ -147,7 +159,7 @@ function App() {
                 onChange={(e) => setEmail(e.target.value)}
               />
               <MDBRow>
-                <MDBCol md="6">
+                <MDBCol md="11">
                   <MDBInputGroup>
                     <MDBInput
                       wrapperClass="mb-4"
@@ -160,7 +172,7 @@ function App() {
                       onChange={(e) => setPassword(e.target.value)}
                     >
                       <MDBIcon
-                        className="eye-icon"
+                        className="eye-icon-signup"
                         onClick={togglePasswordVisiblity}
                       >
                         {icon}

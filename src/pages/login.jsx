@@ -1,4 +1,4 @@
-import { signInWithEmailAndPassword, signOut } from "firebase/auth";
+import { signInWithEmailAndPassword } from "firebase/auth";
 import {
   MDBCard,
   MDBCardBody,
@@ -13,6 +13,7 @@ import {
 import { useState } from "react";
 import { Button } from "react-bootstrap";
 import GoogleButton from "react-google-button";
+import { useNavigate } from "react-router-dom";
 import { auth } from "../config/firebase";
 // import { IconButton } from "@material-ui/core";
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
@@ -20,7 +21,7 @@ import "../components/login.css";
 function App() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  // const [user, setUser] = useState({});
+  const navigate = useNavigate();
   const eye = <FaEye/>;
   const eyeOff = <FaEyeSlash/>;
   const [icon, setIcon] = useState(eyeOff);
@@ -54,20 +55,22 @@ function App() {
   const signIn = async () => {
     try {
       await signInWithEmailAndPassword(auth, email, password);
+      navigate("/");
     } catch (err) {
       console.error(err);
     }
+
   };
 
 
-  const logout = async () => {
-    try {
-      await signOut(auth);
-    } catch (err) {
-      console.error(err);
-    }
-    window.location.reload();
-  };
+  // const logout = async () => {
+  //   try {
+  //     await signOut(auth);
+  //   } catch (err) {
+  //     console.error(err);
+  //   }
+  //   window.location.reload();
+  // };
 
 
   return (
@@ -120,7 +123,7 @@ function App() {
               />
 
               <Button onClick={signIn}>Login</Button>
-              <Button onClick={logout}>Logout</Button>
+              {/* <Button onClick={logout}>Logout</Button> */}
               <hr className="my-4" />
               <GoogleButton
                 style={{ width: "100%", marginTop: "-10px" }}
@@ -130,7 +133,7 @@ function App() {
               />
               <p className="mb-0 text-center" style={{ marginTop: "10px" }}>
                 Chưa có tài khoản?{" "}
-                <a href="#!" className="text-blue-50 fw-bold ">
+                <a href="/signup" className="text-blue-50 fw-bold ">
                   Đăng ký
                 </a>
               </p>

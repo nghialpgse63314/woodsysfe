@@ -68,7 +68,6 @@ function NavBar() {
               navbarScroll
             >
               <Nav.Link href="/">Trang chủ</Nav.Link>
-              {/* <CustomLink to="/">Pricing</CustomLink> */}
               <Nav.Link href="/product">Sản phẩm</Nav.Link>
               <Nav.Link href="/manager">Tư vấn</Nav.Link>
               <Nav.Link href="/read">Manager</Nav.Link>
@@ -76,10 +75,10 @@ function NavBar() {
                 title="Danh mục sản phẩm"
                 id="navbarScrollingDropdown"
               >
-                <NavDropdown.Item href="/profile">profile</NavDropdown.Item>
+                <NavDropdown.Item href="#">1</NavDropdown.Item>
                 <BrowserRouter>
                   {" "}
-                  <NavDropdown.Item href="#">asd</NavDropdown.Item>
+                  <NavDropdown.Item href="#">2</NavDropdown.Item>
                 </BrowserRouter>
 
                 <NavDropdown.Divider />
@@ -99,7 +98,8 @@ function NavBar() {
                 />
                 <Button variant="outline-success">Search</Button>
               </Form> */}
-                <Nav.Link href="/profile">{user?.email}</Nav.Link>
+            {/* CURRENT USER */}
+                <Nav.Link href="/profile" style={{marginLeft:"280px"}}>{user?.email}</Nav.Link>
             </Container>
             <Nav>
             </Nav>

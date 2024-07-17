@@ -19,7 +19,7 @@ export default function Manager() {
      {/* <Sidebar /> */}
      </div>
      {/* <Nav.Link href="/product">Product</Nav.Link> */}
-     <Nav.Link href="/read">Product</Nav.Link>
+     <Nav.Link href="#">Support</Nav.Link>
  
     </Container>
     

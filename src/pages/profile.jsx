@@ -1,5 +1,6 @@
 // import { get, getDatabase, ref } from "firebase/database";
-  import { child, get, getDatabase, ref } from "firebase/database";
+  import { signOut } from "firebase/auth";
+import { child, get, getDatabase, ref } from "firebase/database";
 import {
   MDBBreadcrumb,
   MDBBreadcrumbItem,
@@ -11,11 +12,12 @@ import {
   MDBContainer,
   MDBRow,
 } from "mdb-react-ui-kit";
-
 import { useEffect } from "react";
 import { Button } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 import app, { auth } from "../config/firebase";
 export default function ProfilePage() {
+  const navigate = useNavigate();
   const displayName = document.getElementById("displayName");
   const displayAddress = document.getElementById("displayAddress");
   const displayEmail = document.getElementById("displayEmail");
@@ -39,6 +41,15 @@ export default function ProfilePage() {
     });
   });
 
+  const logout = async () => {
+    try {
+      await signOut(auth);
+      navigate("/");
+    } catch (err) {
+      console.error(err);
+    }
+    window.location.reload();
+  };
   return (
     
     <section style={{ backgroundColor: "#eee" }}>
@@ -51,6 +62,9 @@ export default function ProfilePage() {
               </MDBBreadcrumbItem>
               <MDBBreadcrumbItem>
                 <a href="#">User</a>
+              </MDBBreadcrumbItem>
+              <MDBBreadcrumbItem>
+                <a href="/read">Inventory</a>
               </MDBBreadcrumbItem>
               <MDBBreadcrumbItem active>User Profile</MDBBreadcrumbItem>
             </MDBBreadcrumb>
@@ -136,7 +150,7 @@ export default function ProfilePage() {
             <Button className="mb-4" size="lg">
               Edit
             </Button>
-            <Button className="mb-4" size="lg">
+            <Button className="mb-4" size="lg" onClick={logout}>
               Logout
             </Button>
           </MDBCol>
