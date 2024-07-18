@@ -69,7 +69,7 @@ function NavBar() {
             >
               <Nav.Link href="/">Trang chủ</Nav.Link>
               <Nav.Link href="/product">Sản phẩm</Nav.Link>
-              <Nav.Link href="/manager">Tư vấn</Nav.Link>
+              <Nav.Link href="#">Tư vấn</Nav.Link>
               <Nav.Link href="/read">Manager</Nav.Link>
               <NavDropdown
                 title="Danh mục sản phẩm"

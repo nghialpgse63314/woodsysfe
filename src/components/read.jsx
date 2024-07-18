@@ -64,7 +64,7 @@ function UpdateRead() {
       }}
     >
       
-      <h1>INVENTORY</h1>
+      <h1 className="text-center">INVENTORY</h1>
       <h4> User Logged In:{user?.email} </h4>
       <button className="button1" onClick={() => navigate("/add")}>
         ADD DATA

@@ -32,8 +32,7 @@ export default function Product() {
       fluid
       style={{
         backgroundColor: "white",
-        width: "1050",
-        height: "100vh",
+      
       }}
     >
       <h1 className="text-center">Product</h1>
@@ -58,8 +57,10 @@ export default function Product() {
             {/* <Card.Img variant="top" src="holder.js/100px160" /> */}
             <Card.Body>
               <Card.Title>{item.productName}</Card.Title>
-              <Card.Text>  {item.price}</Card.Text>
-              <Card.Text>  {item.image}</Card.Text>             
+              <Card.Text>Giá: {item.price}</Card.Text>
+              <Card.Text>Hình ảnh: {item.image}</Card.Text>  
+              <Card.Text>Mô tả: {item.description}</Card.Text>      
+              <Card.Text>Chiều dài: {item.length}</Card.Text>                 
             </Card.Body>
           </Card>
         </Col>
