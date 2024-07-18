@@ -2,13 +2,13 @@ import { get, getDatabase, ref, remove } from "firebase/database";
 import { useEffect, useState } from "react";
 import { Container, Table } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import app from "../config/firebase";
-
-import { auth } from "../config/firebase";
+import app, { auth } from "../config/firebase";
+// import DataComponent from "./filter";
 
 function UpdateRead() {
   const navigate = useNavigate();
-
+  const [filteredData, setFilteredData] = useState([]);
+  const [filter, setFilter] = useState('');
   let [dataArray, setDataArray] = useState([]);
 
   useEffect(() => {
@@ -31,6 +31,11 @@ function UpdateRead() {
     };
     fetchData();
   });
+  //Filter
+  useEffect(() => {
+    setFilteredData(dataArray.filter(item => item.productName.toLowerCase().includes(filter.toLowerCase())));
+  }, [filter, dataArray]);
+
 
   //get current user
   const [user, setUser] = useState({});
@@ -67,13 +72,26 @@ function UpdateRead() {
       <button className="button1" onClick={() => navigate("/")}>
         GO HOMEPAGE
       </button>{" "}
+      <div>
+      {/* /*Start of Filter */ }
+      <input
+        type="text"
+        value={filter}
+        onChange={(e) => setFilter(e.target.value)}
+        placeholder="Filter by name"
+      />
+      {/* {filteredData.map(item => (
+        <div key={item.id}>{item.productName}</div>
+      ))} */}
+        {/* /*End of Filter */ }
+    </div>
       <Table bordered striped variant="dark">
         <thead>
           <tr>
             <th>#</th>
             <th>Image</th>
-            <th>Name</th>
             <th>Price</th>
+            <th>Name</th>
             <th>Width</th>
             <th>Length</th>
             <th>Thickness</th>
@@ -82,7 +100,7 @@ function UpdateRead() {
           </tr>
         </thead>
         <tbody>
-          {dataArray.map((item, index) => {
+          {filteredData.map((item, index) => {
             return (
               <tr key={index}>           
                 <td>{index + 1}</td>
