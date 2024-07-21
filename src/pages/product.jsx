@@ -35,7 +35,7 @@ export default function Product() {
       
       }}
     >
-      <h1 className="text-center">Product</h1>
+      <h1 className="text-center">Sản phẩm</h1>
       <div>
       {/* /*Start of Filter */ }
       <input

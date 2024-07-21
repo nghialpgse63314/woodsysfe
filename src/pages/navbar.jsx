@@ -19,11 +19,13 @@ import {
 import Logo from "../assets/images/wologo.png";
 import Add from "../components/adddata";
 import UpdateRead from "../components/read";
+import ReadAccount from "../components/readAccounts";
 import UpdateWrite from "../components/updateWrite";
 import { auth } from "../config/firebase";
 import Home from "./home";
 import Login from "./login";
 import Manager from "./manager";
+import PaginationComponent from "./pagination";
 import Product from "./product";
 import ProfilePage from "./profile";
 import Signup from "./signup";
@@ -75,7 +77,7 @@ function NavBar() {
                 title="Danh mục sản phẩm"
                 id="navbarScrollingDropdown"
               >
-                <NavDropdown.Item href="#">1</NavDropdown.Item>
+                <NavDropdown.Item href="/accounts">account</NavDropdown.Item>
                 <BrowserRouter>
                   {" "}
                   <NavDropdown.Item href="#">2</NavDropdown.Item>
@@ -152,6 +154,8 @@ function NavBar() {
             <Route exact path="/read" element={<UpdateRead />} />
             <Route exact path="/add" element={<Add />} />
             <Route exact path="/profile" element={<ProfilePage />} />
+            <Route exact path="/product2" element={<PaginationComponent />} />
+            <Route exact path="/accounts" element={<ReadAccount />} />
             <Route path="/updatewrite/:firebaseId" element={ <UpdateWrite /> } />
           </Routes>
         </Router>
