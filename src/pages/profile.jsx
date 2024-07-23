@@ -124,7 +124,7 @@ export default function ProfilePage() {
                     ></MDBCardText>
                   </MDBCol>
                 </MDBRow>
-                <hr />
+                {/* <hr />
                 <MDBRow>
                   <MDBCol sm="3">
                     <MDBCardText>Chức vụ</MDBCardText>
@@ -133,7 +133,7 @@ export default function ProfilePage() {
                     <MDBCardText className="text-muted">Staff</MDBCardText>
                   </MDBCol>
                 </MDBRow>
-                <hr />
+                <hr /> */}
                 <MDBRow>
                   <MDBCol sm="3">
                     <MDBCardText>Địa chỉ</MDBCardText>

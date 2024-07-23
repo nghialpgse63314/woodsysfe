@@ -7,7 +7,7 @@ import app, { auth } from "../config/firebase";
 // import DataComponent from "./filter";
 //  import PaginationComponent from "../components/pagination";
 // import { Pagination } from "react-bootstrap";
-function ReadAccount() {
+function ReadOrders() {
 
     const [filteredData, setFilteredData] = useState([]);
     const [filter, setFilter] = useState('');
@@ -27,14 +27,14 @@ function ReadAccount() {
     const fetchData = async () => {
       await fetchTotalItems();
       const db = getDatabase(app);
-      const dbRef = ref(db, "Customers");
+      const dbRef = ref(db, "Orders");
       const snapshot = await get(dbRef);
       if (snapshot.exists()) {
         const myData = snapshot.val();
         const temporaryArray = Object.keys(myData).map((myFireId) => {
           return {
             ...myData[myFireId],
-            customerId: myFireId,
+            customerID: myFireId,
           };
         });
         setDataArray(temporaryArray);
@@ -46,9 +46,9 @@ function ReadAccount() {
   });
   //end of get data
 
-  //Filter by email
+  //Filter
   useEffect(() => {
-    setFilteredData(dataArray.filter(item => item.email.toLowerCase().includes(filter.toLowerCase())));
+    setFilteredData(dataArray.filter(item => item.customerID.toLowerCase().includes(filter.toLowerCase())));
   }, [filter, dataArray]);
 
 
@@ -56,7 +56,7 @@ function ReadAccount() {
   const fetchTotalItems = async () => {
     try {
       const db = getDatabase(app);
-      const dbRef = ref(db, "Customers");
+      const dbRef = ref(db, "Orders");
       const snapshot = await get(dbRef);
       const totalCount = snapshot?.size || 0;
       setTotalItems(totalCount);
@@ -120,15 +120,16 @@ function ReadAccount() {
         HOME
       </button>{" "}
 
-     
+      <div className='total-count'>
+      Total={totalItems}
+      </div>
       <div>
       {/* /*Start of Filter */ }
       <input
-      style={{marginBottom: "10px",marginTop:"10px"}}
         type="text"
         value={filter}
         onChange={(e) => setFilter(e.target.value)}
-        placeholder="Filter by email"
+        placeholder="Filter by customer ID"
       />
       {/* {filteredData.map(item => (
         <div key={item.id}>{item.productName}</div>
@@ -139,12 +140,16 @@ function ReadAccount() {
         <thead>
           <tr>
             <th>#</th>
-            <th>Address</th>
-            <th>Email</th>
-            <th>Name</th>
-            <th>Phone</th>
-            <th>Password</th>
-            <th></th>
+            <th>Customer ID</th>
+            <th>Payment ID</th>
+            <th>Weight</th>
+            <th>Price</th>
+            <th>Order date</th>
+            <th>Shipping date</th>
+            <th>Shipping address</th>
+            <th>Fee</th>
+            <th>Status</th>
+          
           </tr>
         </thead>
         <tbody>       
@@ -152,14 +157,18 @@ function ReadAccount() {
             return (
               <tr key={index}>            
                 <td>{index + firstIndex + 1}</td>
-                <td>{item.address}</td>
-                <td>{item.email}</td>
-                <td>{item.name}</td>
-                <td>{item.phone}</td>
-                <td>{item.password}</td>
+                <td>{item.customerID}</td>
+                <td>{item.paymentID}</td>
+                <td>{item.TotalWeight}</td>
+                <td>{item.price}</td>
+                <td>{item.OrderDate}</td>
+                <td>{item.ShippingDate}</td>
+                <td>{item.ShipTo}</td>
+                <td>{item.fee}</td>
+                <td>{item.status}</td>
                 <button style={{width:"80px"}}
                   className="button1"
-                  onClick={() => deleteAccount(item.customerId)}
+                  onClick={() => deleteAccount(item.customerID)}
                 >
                   {" "}
                   DELETE
@@ -170,9 +179,6 @@ function ReadAccount() {
         
         </tbody>
       </Table>
-      <div className='total-count'>
-      Total accounts = {totalItems}
-      </div>
       <nav>
         <ul className="pagination">
             <li className="page-item">
@@ -208,4 +214,4 @@ function ReadAccount() {
   );
 }
 
-export default ReadAccount;
+export default ReadOrders;

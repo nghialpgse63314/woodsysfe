@@ -20,6 +20,7 @@ import Logo from "../assets/images/wologo.png";
 import Add from "../components/adddata";
 import UpdateRead from "../components/read";
 import ReadAccount from "../components/readAccounts";
+import ReadOrders from "../components/readOrders";
 import UpdateWrite from "../components/updateWrite";
 import { auth } from "../config/firebase";
 import Home from "./home";
@@ -80,11 +81,11 @@ function NavBar() {
                 <NavDropdown.Item href="/accounts">account</NavDropdown.Item>
                 <BrowserRouter>
                   {" "}
-                  <NavDropdown.Item href="#">2</NavDropdown.Item>
+                  <NavDropdown.Item href="/account2">2</NavDropdown.Item>
                 </BrowserRouter>
 
                 <NavDropdown.Divider />
-                <NavDropdown.Item href="#action5">combo</NavDropdown.Item>
+                <NavDropdown.Item href="/orders">orders</NavDropdown.Item>
               </NavDropdown>
             </Nav>
             <Container
@@ -101,7 +102,7 @@ function NavBar() {
                 <Button variant="outline-success">Search</Button>
               </Form> */}
             {/* CURRENT USER */}
-                <Nav.Link href="/profile" style={{marginLeft:"280px"}}>{user?.email}</Nav.Link>
+                <Nav.Link href="/profile" style={{marginLeft:"260px"}}>{user?.email}</Nav.Link>
             </Container>
             <Nav>
             </Nav>
@@ -156,6 +157,7 @@ function NavBar() {
             <Route exact path="/profile" element={<ProfilePage />} />
             <Route exact path="/product2" element={<PaginationComponent />} />
             <Route exact path="/accounts" element={<ReadAccount />} />
+            <Route exact path="/orders" element={<ReadOrders />} />
             <Route path="/updatewrite/:firebaseId" element={ <UpdateWrite /> } />
           </Routes>
         </Router>
