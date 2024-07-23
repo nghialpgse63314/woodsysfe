@@ -1,9 +1,10 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { get, getDatabase, ref, remove } from "firebase/database";
+import { get, getDatabase, ref } from "firebase/database";
 import { useEffect, useState } from "react";
 import { Container, Table } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import app, { auth } from "../config/firebase";
+
 // import DataComponent from "./filter";
 //  import PaginationComponent from "../components/pagination";
 // import { Pagination } from "react-bootstrap";
@@ -94,13 +95,8 @@ function ReadOrders() {
   }, [user]);
 
 
-  //delete
-  const deleteAccount = async (customerIdParam) => {
-    const db = getDatabase(app);
-    const dbRef = ref(db, "Customers/" + customerIdParam);
-    await remove(dbRef);
-    window.location.reload();
-  };
+
+  
 
   return (
     <Container
@@ -111,7 +107,7 @@ function ReadOrders() {
       }}
     >
       
-      <h1 className="text-center">Accounts</h1>
+      <h1 className="text-center">Orders</h1>
       <h4> User Logged In:{user?.email} </h4>
       {/* <button className="button1" onClick={() => navigate("/add")}>
         ADD DATA
@@ -163,16 +159,13 @@ function ReadOrders() {
                 <td>{item.price}</td>
                 <td>{item.OrderDate}</td>
                 <td>{item.ShippingDate}</td>
-                <td>{item.ShipTo}</td>
+                <td>{item.ShipTo}
+                   
+
+                </td>
                 <td>{item.fee}</td>
-                <td>{item.status}</td>
-                <button style={{width:"80px"}}
-                  className="button1"
-                  onClick={() => deleteAccount(item.customerID)}
-                >
-                  {" "}
-                  DELETE
-                </button>
+                <td>{item.status}
+                </td>
               </tr>
             );
           })}
