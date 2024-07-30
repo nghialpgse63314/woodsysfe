@@ -34,8 +34,8 @@ export default function ProfilePage() {
         user.providerData.forEach((user) => {
           displayName.innerHTML = user.displayName;
           displayEmail.innerHTML = user.email;
-          displayAddress.innerHTML = user.address;
-          displayPhone.innerHTML = user.phone;
+          displayAddress.innerHTML = user.uid.address;
+          displayPhone.innerHTML = user.phoneNumber;
         });
       }
     });
@@ -53,20 +53,29 @@ export default function ProfilePage() {
   return (
     
     <section style={{ backgroundColor: "#eee" }}>
-      <MDBContainer className="py-5">
+      <MDBContainer className="py-5" fluid  style={{
+        backgroundColor: "white",
+        height: "100%",
+      }}>
         <MDBRow>
           <MDBCol>
             <MDBBreadcrumb className="bg-light rounded-3 p-3 mb-4">
               <MDBBreadcrumbItem>
-                <a href="/">Home</a>
+                <a href="/">Trang chủ</a>
               </MDBBreadcrumbItem>
               <MDBBreadcrumbItem>
-                <a href="#">User</a>
+                <a href="/accounts">Tài khoản</a>
               </MDBBreadcrumbItem>
               <MDBBreadcrumbItem>
-                <a href="/read">Inventory</a>
+                <a href="/read">Kho hàng</a>
               </MDBBreadcrumbItem>
-              <MDBBreadcrumbItem active>User Profile</MDBBreadcrumbItem>
+              <MDBBreadcrumbItem>
+                <a href="/orders">Đơn hàng</a>
+              </MDBBreadcrumbItem>
+              <MDBBreadcrumbItem>
+                <a href="/statistic">Thống kê</a>
+              </MDBBreadcrumbItem>
+              <MDBBreadcrumbItem active>Hồ sơ</MDBBreadcrumbItem>
             </MDBBreadcrumb>
           </MDBCol>
         </MDBRow>

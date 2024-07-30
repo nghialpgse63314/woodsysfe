@@ -4,7 +4,13 @@ import { Container, Table } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import app, { auth } from "../config/firebase";
 // import DataComponent from "./filter";
-
+import {
+  MDBBreadcrumb,
+  MDBBreadcrumbItem,
+  MDBCol,
+  MDBInput,
+  MDBRow,
+} from "mdb-react-ui-kit";
 function UpdateRead() {
   const [totalItems, setTotalItems] = useState(0);
   const [currentPage,setCurrentPage] = useState(1);
@@ -103,29 +109,52 @@ const fetchTotalItems = async () => {
         height: "100vh",
       }}
     >
-      
-      <h1 className="text-center">INVENTORY</h1>
-      <h4> User Logged In:{user?.email} </h4>
+         <MDBRow>
+          <MDBCol>
+            <MDBBreadcrumb className="bg-light rounded-3 p-3 mb-4">
+              <MDBBreadcrumbItem>
+                <a href="/">Trang chủ</a>
+              </MDBBreadcrumbItem>
+              <MDBBreadcrumbItem>
+              <a href="/accounts">Tài khoản</a>
+              </MDBBreadcrumbItem>
+              <MDBBreadcrumbItem active>Kho hàng</MDBBreadcrumbItem>
+              <MDBBreadcrumbItem>
+                <a href="/orders">Đơn hàng</a>
+              </MDBBreadcrumbItem>
+              <MDBBreadcrumbItem>
+                <a href="/profile">Hồ sơ</a>
+              </MDBBreadcrumbItem>
+            
+            </MDBBreadcrumb>
+          </MDBCol>
+        </MDBRow>
+      <h1 className="text-center">Kho hàng</h1>
+      {/* <h4> User Logged In:{user?.email} </h4> */}
       <button className="button1" onClick={() => navigate("/add")}>
         ADD DATA
       </button>
-      <button className="button1" onClick={() => navigate("/")}>
+      {/* <button className="button1" onClick={() => navigate("/")}>
         GO HOMEPAGE
-      </button>{" "}
+      </button>{" "} */}
       <div>
       {/* /*Start of Filter */ }
-      <input
+      <div className='total-count'>
+      Total={totalItems}
+      </div>
+      <MDBInput
         type="text"
         value={filter}
+        style={{marginBottom:"10px",width:"500px"}}
         onChange={(e) => setFilter(e.target.value)}
-        placeholder="Filter by name"
+        placeholder="Lọc theo tên"
       />
       {/* {filteredData.map(item => (
         <div key={item.id}>{item.productName}</div>
       ))} */}
         {/* /*End of Filter */ }
     </div>
-      <Table bordered striped variant="dark">
+      <Table bordered striped variant="light">
         <thead>
           <tr>
             <th>#</th>
@@ -170,9 +199,7 @@ const fetchTotalItems = async () => {
           })}
         </tbody>
       </Table>
-      <div className='total-count'>
-      Total={totalItems}
-      </div>
+     
       <nav>
         <ul className="pagination">
             <li className="page-item">

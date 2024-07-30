@@ -4,8 +4,13 @@ import { MDBInput } from 'mdb-react-ui-kit';
 import { useEffect, useState } from "react";
 import { Container, Table } from "react-bootstrap";
 // import { useNavigate } from "react-router-dom";
+import {
+  MDBBreadcrumb,
+  MDBBreadcrumbItem,
+  MDBCol,
+  MDBRow,
+} from "mdb-react-ui-kit";
 import app, { auth } from "../config/firebase";
-
 // import DataComponent from "./filter";
 //  import PaginationComponent from "../components/pagination";
 // import { Pagination } from "react-bootstrap";
@@ -110,7 +115,26 @@ function ReadOrders({onSelect}) {
         height: "100%",
       }}
     >
-      
+        <MDBRow>
+          <MDBCol>
+            <MDBBreadcrumb className="bg-light rounded-3 p-3 mb-4">
+              <MDBBreadcrumbItem>
+                <a href="/">Trang chủ</a>
+              </MDBBreadcrumbItem>
+              <MDBBreadcrumbItem>
+              <a href="/accounts">Tài khoản</a>
+              </MDBBreadcrumbItem>
+              <MDBBreadcrumbItem>
+                <a href="/read">Kho hàng</a>
+              </MDBBreadcrumbItem>
+              <MDBBreadcrumbItem active>Đơn hàng</MDBBreadcrumbItem>
+              <MDBBreadcrumbItem>
+                <a href="/profile">Hồ sơ</a>
+              </MDBBreadcrumbItem>
+           
+            </MDBBreadcrumb>
+          </MDBCol>
+        </MDBRow>
       <h1 className="text-center">Đơn hàng</h1>
       {/* <h4> User Logged In:{user?.email} </h4> */}
       {/* <button className="button1" onClick={() => navigate("/add")}>

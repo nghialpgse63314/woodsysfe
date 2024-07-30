@@ -19,10 +19,9 @@ import {
 import Logo from "../assets/images/wologo.png";
 import Add from "../components/adddata";
 import Ticket from "../components/deliveryTicket";
+import ReadOrders from "../components/orderandordedetail";
 import UpdateRead from "../components/read";
 import ReadAccount from "../components/readAccounts";
-
-import ReadOrders from "../components/orderandordedetail";
 import UpdateWrite from "../components/updateWrite";
 import { auth } from "../config/firebase";
 import Home from "./home";
@@ -32,6 +31,7 @@ import PaginationComponent from "./pagination";
 import Product from "./product";
 import ProfilePage from "./profile";
 import Signup from "./signup";
+import ReadStatistic from "./statistic";
 function NavBar() {
   //get current user
   const [user, setUser] = useState({});
@@ -80,14 +80,14 @@ function NavBar() {
                 title="Danh mục sản phẩm"
                 id="navbarScrollingDropdown"
               >
-                <NavDropdown.Item href="/accounts">account</NavDropdown.Item>
+                <NavDropdown.Item href="#">1</NavDropdown.Item>
                 <BrowserRouter>
                   {" "}
                   <NavDropdown.Item href="#">2</NavDropdown.Item>
                 </BrowserRouter>
 
                 <NavDropdown.Divider />
-                <NavDropdown.Item href="/orders">orders</NavDropdown.Item>
+                <NavDropdown.Item href="#">3</NavDropdown.Item>
               </NavDropdown>
             </Nav>
             <Container
@@ -160,7 +160,7 @@ function NavBar() {
             <Route exact path="/product2" element={<PaginationComponent />} />
             <Route exact path="/accounts" element={<ReadAccount />} />
             <Route exact path="/orders" element={<ReadOrders />} />
-            
+            <Route exact path="/statistic" element={<ReadStatistic/>} />
             <Route exact path="/ticket" element={<Ticket />} />
             <Route path="/updatewrite/:firebaseId" element={ <UpdateWrite /> } />
           </Routes>

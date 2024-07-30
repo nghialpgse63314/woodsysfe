@@ -1,28 +1,34 @@
-import 'bootstrap/dist/css/bootstrap.min.css';
+import "bootstrap/dist/css/bootstrap.min.css";
 import { get, getDatabase, ref, remove } from "firebase/database";
 import { useEffect, useState } from "react";
 import { Container, Table } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import app, { auth } from "../config/firebase";
 // import DataComponent from "./filter";
 //  import PaginationComponent from "../components/pagination";
 // import { Pagination } from "react-bootstrap";
+import {
+  MDBBreadcrumb,
+  MDBBreadcrumbItem,
+  MDBCol,
+  MDBInput,
+  MDBRow,
+} from "mdb-react-ui-kit";
 function ReadAccount() {
+  const [filteredData, setFilteredData] = useState([]);
+  const [filter, setFilter] = useState("");
+  let [dataArray, setDataArray] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const recordsPerPage = 5;
+  const lastIndex = currentPage * recordsPerPage;
+  const firstIndex = lastIndex - recordsPerPage;
+  const records = filteredData.slice(firstIndex, lastIndex);
+  const npage = Math.ceil(filteredData.length / recordsPerPage);
+  const numbers = [...Array(npage + 1).keys()].slice(1);
 
-    const [filteredData, setFilteredData] = useState([]);
-    const [filter, setFilter] = useState('');
-    let [dataArray, setDataArray] = useState([]);
-    const [currentPage,setCurrentPage] = useState(1);
-    const recordsPerPage = 5;
-    const lastIndex = currentPage * recordsPerPage;
-    const firstIndex = lastIndex - recordsPerPage;
-    const records = filteredData.slice(firstIndex,lastIndex);
-    const npage = Math.ceil(filteredData.length / recordsPerPage);
-    const numbers = [...Array(npage + 1).keys()].slice(1);
-    
-    const navigate = useNavigate();
-   const [totalItems, setTotalItems] = useState(0);
-   //get data
+  // const navigate = useNavigate();
+  const [totalItems, setTotalItems] = useState(0);
+  //get data
   useEffect(() => {
     const fetchData = async () => {
       await fetchTotalItems();
@@ -48,9 +54,12 @@ function ReadAccount() {
 
   //Filter by email
   useEffect(() => {
-    setFilteredData(dataArray.filter(item => item.email.toLowerCase().includes(filter.toLowerCase())));
+    setFilteredData(
+      dataArray.filter((item) =>
+        item.email.toLowerCase().includes(filter.toLowerCase())
+      )
+    );
   }, [filter, dataArray]);
-
 
   //get total count
   const fetchTotalItems = async () => {
@@ -65,24 +74,23 @@ function ReadAccount() {
     }
   };
   //pagination
-    function prePage(){
-      if(currentPage !== 1){
-        setCurrentPage(currentPage - 1)
-      }
+  function prePage() {
+    if (currentPage !== 1) {
+      setCurrentPage(currentPage - 1);
     }
+  }
 
-    function changeCPage(id){
-        setCurrentPage(id)
+  function changeCPage(id) {
+    setCurrentPage(id);
+  }
+
+  function nextPage() {
+    if (currentPage !== lastIndex) {
+      setCurrentPage(currentPage + 1);
     }
+  }
+  //end of pagination
 
-    function nextPage(){
-      if(currentPage !== lastIndex){
-        setCurrentPage(currentPage + 1)
-      }
-    }
-//end of pagination
-
- 
   //get current user
   const [user, setUser] = useState({});
   useEffect(() => {
@@ -92,7 +100,6 @@ function ReadAccount() {
       }
     });
   }, [user]);
-
 
   //delete
   const deleteAccount = async (customerIdParam) => {
@@ -110,31 +117,48 @@ function ReadAccount() {
         height: "100%",
       }}
     >
-      
-      <h1 className="text-center">Accounts</h1>
+      <MDBRow>
+        <MDBCol>
+          <MDBBreadcrumb className="bg-light rounded-3 p-3 mb-4">
+            <MDBBreadcrumbItem>
+              <a href="/">Trang chủ</a>
+            </MDBBreadcrumbItem>
+            <MDBBreadcrumbItem active>Tài khoản</MDBBreadcrumbItem>
+            <MDBBreadcrumbItem>
+              <a href="/read">Kho hàng</a>
+            </MDBBreadcrumbItem>
+            <MDBBreadcrumbItem>
+              <a href="/orders">Đơn hàng</a>
+            </MDBBreadcrumbItem>
+            <MDBBreadcrumbItem>
+              <a href="/profile">Hồ sơ</a>
+            </MDBBreadcrumbItem>
+          </MDBBreadcrumb>
+        </MDBCol>
+      </MDBRow>
+      <h1 className="text-center">Tài khoản</h1>
       <h4> User Logged In:{user?.email} </h4>
       {/* <button className="button1" onClick={() => navigate("/add")}>
         ADD DATA
       </button> */}
-      <button className="button1" onClick={() => navigate("/")}>
+      {/* <button className="button1" onClick={() => navigate("/")}>
         HOME
-      </button>{" "}
+      </button>{" "} */}
 
-     
       <div>
-      {/* /*Start of Filter */ }
-      <input
-      style={{marginBottom: "10px",marginTop:"10px"}}
-        type="text"
-        value={filter}
-        onChange={(e) => setFilter(e.target.value)}
-        placeholder="Filter by email"
-      />
-      {/* {filteredData.map(item => (
+        {/* /*Start of Filter */}
+        <MDBInput
+          style={{ marginBottom: "10px", width: "500px" }}
+          type="text"
+          value={filter}
+          onChange={(e) => setFilter(e.target.value)}
+          placeholder="Lọc theo email"
+        />
+        {/* {filteredData.map(item => (
         <div key={item.id}>{item.productName}</div>
       ))} */}
-        {/* /*End of Filter */ }
-    </div>  
+        {/* /*End of Filter */}
+      </div>
       <Table bordered striped variant="light">
         <thead>
           <tr>
@@ -147,17 +171,18 @@ function ReadAccount() {
             <th></th>
           </tr>
         </thead>
-        <tbody>       
-            {records.map((item, index) => {
+        <tbody>
+          {records.map((item, index) => {
             return (
-              <tr key={index}>            
+              <tr key={index}>
                 <td>{index + firstIndex + 1}</td>
                 <td>{item.address}</td>
                 <td>{item.email}</td>
                 <td>{item.name}</td>
                 <td>{item.phone}</td>
                 <td>{item.password}</td>
-                <button style={{width:"80px"}}
+                <button
+                  style={{ width: "80px" }}
                   className="button1"
                   onClick={() => deleteAccount(item.customerId)}
                 >
@@ -167,27 +192,31 @@ function ReadAccount() {
               </tr>
             );
           })}
-        
         </tbody>
       </Table>
-      <div className='total-count'>
-      Total accounts = {totalItems}
-      </div>
+      <div className="total-count">Total accounts = {totalItems}</div>
       <nav>
         <ul className="pagination">
-            <li className="page-item">
-              <a href="#" className="page-link" onClick={prePage}>Prev</a>
+          <li className="page-item">
+            <a href="#" className="page-link" onClick={prePage}>
+              Prev
+            </a>
+          </li>
+          {numbers.map((n, index) => (
+            <li
+              className={`page-item ${currentPage === n ? "active" : ""}`}
+              key={index}
+            >
+              <a href="#" className="page-link" onClick={() => changeCPage(n)}>
+                {n}
+              </a>
             </li>
-              {
-                numbers.map((n,index) => (
-                  <li className={`page-item ${currentPage === n ? 'active' : ''}`} key={index}>
-                    <a href="#" className="page-link" onClick={() => changeCPage(n)}>{n}</a>
-                  </li>
-                ))
-              }
-            <li className="page-item">
-              <a href="#" className="page-link" onClick={nextPage}>Next</a>
-            </li>
+          ))}
+          <li className="page-item">
+            <a href="#" className="page-link" onClick={nextPage}>
+              Next
+            </a>
+          </li>
         </ul>
       </nav>
 
@@ -197,14 +226,12 @@ function ReadAccount() {
           onPageChange={handlePageChange}
           onPerPageChange={handlePerPageChange}
         /> */}
-  
+
       <br />
       {/* <button className="button1" onClick={() => navigate("/read")}>
           GO READ PAGE
         </button> */}
-   
     </Container>
-    
   );
 }
 
