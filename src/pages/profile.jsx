@@ -132,8 +132,8 @@ export default function ProfilePage() {
                   <MDBCol sm="9">
                     <MDBCardText className="text-muted">Staff</MDBCardText>
                   </MDBCol>
-                </MDBRow>
-                <hr /> */}
+                </MDBRow> */}
+                <hr />
                 <MDBRow>
                   <MDBCol sm="3">
                     <MDBCardText>Địa chỉ</MDBCardText>
@@ -147,10 +147,10 @@ export default function ProfilePage() {
                 </MDBRow>
               </MDBCardBody>
             </MDBCard>
-            <Button className="mb-4" size="lg">
+            <Button className="mb-4" size="lg" style={{width:100,marginRight:"100px"}}>
               Edit
             </Button>
-            <Button className="mb-4" size="lg" onClick={logout}>
+            <Button className="mb-4" size="lg" onClick={logout} style={{width:100,marginLeft:"100px"}}>
               Logout
             </Button>
           </MDBCol>

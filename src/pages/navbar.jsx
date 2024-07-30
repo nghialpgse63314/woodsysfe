@@ -18,9 +18,11 @@ import {
 } from "react-router-dom";
 import Logo from "../assets/images/wologo.png";
 import Add from "../components/adddata";
+import Ticket from "../components/deliveryTicket";
 import UpdateRead from "../components/read";
 import ReadAccount from "../components/readAccounts";
-import ReadOrders from "../components/readOrders";
+
+import ReadOrders from "../components/orderandordedetail";
 import UpdateWrite from "../components/updateWrite";
 import { auth } from "../config/firebase";
 import Home from "./home";
@@ -81,7 +83,7 @@ function NavBar() {
                 <NavDropdown.Item href="/accounts">account</NavDropdown.Item>
                 <BrowserRouter>
                   {" "}
-                  <NavDropdown.Item href="/account2">2</NavDropdown.Item>
+                  <NavDropdown.Item href="#">2</NavDropdown.Item>
                 </BrowserRouter>
 
                 <NavDropdown.Divider />
@@ -158,6 +160,8 @@ function NavBar() {
             <Route exact path="/product2" element={<PaginationComponent />} />
             <Route exact path="/accounts" element={<ReadAccount />} />
             <Route exact path="/orders" element={<ReadOrders />} />
+            
+            <Route exact path="/ticket" element={<Ticket />} />
             <Route path="/updatewrite/:firebaseId" element={ <UpdateWrite /> } />
           </Routes>
         </Router>
