@@ -2,11 +2,11 @@ import Container from "react-bootstrap/Container";
 // import Sidebar from "../components/sidebar.jsx";
 import { get, getDatabase, ref } from "firebase/database";
 import {
-    MDBBreadcrumb,
-    MDBBreadcrumbItem,
-    MDBCol,
+  MDBBreadcrumb,
+  MDBBreadcrumbItem,
+  MDBCol,
 
-    MDBRow,
+  MDBRow,
 } from "mdb-react-ui-kit";
 import { useEffect, useState } from "react";
 import app from "../config/firebase";
@@ -86,8 +86,7 @@ export default function ReadStatistic() {
               <MDBBreadcrumbItem active>Thống kê</MDBBreadcrumbItem>
               <MDBBreadcrumbItem>
               <a href="/profile">Hồ sơ</a>
-              </MDBBreadcrumbItem>
-             
+              </MDBBreadcrumbItem>            
             </MDBBreadcrumb>
           </MDBCol>
         </MDBRow>
