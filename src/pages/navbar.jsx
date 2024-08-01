@@ -18,10 +18,11 @@ import {
 } from "react-router-dom";
 import Logo from "../assets/images/wologo.png";
 import Add from "../components/adddata";
-import Ticket from "../components/deliveryTicket";
+import AddTicket from "../components/deliveryTicket";
 import ReadOrders from "../components/orderandordedetail";
 import UpdateRead from "../components/read";
 import ReadAccount from "../components/readAccounts";
+import ReadTickets from "../components/readTicket";
 import UpdateWrite from "../components/updateWrite";
 import { auth } from "../config/firebase";
 import Home from "./home";
@@ -75,7 +76,6 @@ function NavBar() {
               <Nav.Link href="/">Trang chủ</Nav.Link>
               <Nav.Link href="/product">Sản phẩm</Nav.Link>
               <Nav.Link href="#">Tư vấn</Nav.Link>
-              <Nav.Link href="/read">Manager</Nav.Link>
               <NavDropdown
                 title="Danh mục sản phẩm"
                 id="navbarScrollingDropdown"
@@ -161,7 +161,8 @@ function NavBar() {
             <Route exact path="/accounts" element={<ReadAccount />} />
             <Route exact path="/orders" element={<ReadOrders />} />
             <Route exact path="/statistic" element={<ReadStatistic/>} />
-            <Route exact path="/ticket" element={<Ticket />} />
+            <Route exact path="/ticket" element={<AddTicket />} />
+            <Route exact path="/readticket" element={<ReadTickets />} />
             <Route path="/updatewrite/:firebaseId" element={ <UpdateWrite /> } />
           </Routes>
         </Router>

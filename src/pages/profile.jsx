@@ -52,10 +52,10 @@ export default function ProfilePage() {
   };
   return (
     
-    <section style={{ backgroundColor: "#eee" }}>
-      <MDBContainer className="py-5" fluid  style={{
+
+      <MDBContainer  fluid  style={{
         backgroundColor: "white",
-        height: "100%",
+        height: "550px",
       }}>
         <MDBRow>
           <MDBCol>
@@ -71,6 +71,9 @@ export default function ProfilePage() {
               </MDBBreadcrumbItem>
               <MDBBreadcrumbItem>
                 <a href="/orders">Đơn hàng</a>
+              </MDBBreadcrumbItem>
+              <MDBBreadcrumbItem>
+                <a href="/readticket">Phiếu xuất kho</a>
               </MDBBreadcrumbItem>
               <MDBBreadcrumbItem>
                 <a href="/statistic">Thống kê</a>
@@ -165,6 +168,6 @@ export default function ProfilePage() {
           </MDBCol>
         </MDBRow>
       </MDBContainer>
-    </section>
+
   );
 }

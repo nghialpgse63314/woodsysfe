@@ -131,6 +131,9 @@ function ReadAccount() {
               <a href="/orders">Đơn hàng</a>
             </MDBBreadcrumbItem>
             <MDBBreadcrumbItem>
+                <a href="/readticket">Phiếu xuất kho</a>
+              </MDBBreadcrumbItem>
+            <MDBBreadcrumbItem>
               <a href="/profile">Hồ sơ</a>
             </MDBBreadcrumbItem>
           </MDBBreadcrumb>

@@ -129,6 +129,9 @@ function ReadOrders({onSelect}) {
               </MDBBreadcrumbItem>
               <MDBBreadcrumbItem active>Đơn hàng</MDBBreadcrumbItem>
               <MDBBreadcrumbItem>
+                <a href="/readticket">Phiếu xuất kho</a>
+              </MDBBreadcrumbItem>
+              <MDBBreadcrumbItem>
                 <a href="/profile">Hồ sơ</a>
               </MDBBreadcrumbItem>
            

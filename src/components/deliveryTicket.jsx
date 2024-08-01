@@ -1,4 +1,5 @@
 import { getDatabase, push, ref, set } from "firebase/database";
+
 import {
   MDBCard,
   MDBCardBody,
@@ -11,46 +12,79 @@ import { useState } from "react";
 import { Button } from "react-bootstrap";
 // import { useNavigate } from "react-router-dom";
 import app from "../config/firebase";
+
 export default function AddTicket() {
-    // const navigate = useNavigate();
-   
+  // const navigate = useNavigate();
+
   const [inventoryID, setInventoryID] = useState("");
-  const [status, setStatus] = useState("");
- const [shipper,setShipper] = useState("");
-  const [createdDate,setCreatedDate] = useState("");
+    // const [status, setStatus] = useState("");
+  const [shipper, setShipper] = useState("");
+  const [createdDate, setCreatedDate] = useState("");
 
-    const saveData = async () => {
-        const db = getDatabase(app);
-        const newDocRef = push(ref(db, "Ticket"));
-        set(newDocRef, {
-            inventoryID: inventoryID,
-            shipper : shipper,
-            status: status,
-            createdDate: createdDate
-            
-        }).then( () => {
-         
-            alert("data save successfully")
-        }).catch((error) => {
-            alert("error", error.message)
-        })
 
-    }
 
-    return(      
-          <MDBContainer>
+  const saveData = async () => {
+    // const statusData = {
+    //       status: 'Chờ thanh toán'
+    //      };
+    const db = getDatabase(app);
+    const newDocRef = push(ref(db, "Ticket"));
+    set(newDocRef, {
+      inventoryID: inventoryID,
+      shipper: shipper,
+      status: 'Chờ thanh toán',
+      createdDate: createdDate,
+    })
+      .then(() => {
+
+        alert("data save successfully");
+      })
+      .catch((error) => {
+        alert("error", error.message);
+      });
+  };
+ 
+  // const addData = async() =>{
+  //   const statusData = {
+  //     status: 'Chờ thanh toán'
+  //    };
+   
+  //   const db = getDatabase(app);
+  //   const newDocRef = push(ref(db, "Ticket"));
+  //   set(newDocRef, statusData, {
+  //     inventoryID: inventoryID,
+  //         shipper: shipper,
+  //         createdDate: createdDate,
+  //   })
+  //   .then(() => {
+  //     alert("data save successfully");
+  //   })
+  //   .catch((error) => {
+  //     console.error('Error writing data: ', error);
+  //   });
+  // }
+
+
+
+
+
+
+
+
+  return (
+    <MDBContainer>
       <MDBCard className="text-black m-5" style={{ borderRadius: "25px" }}>
         <MDBCardBody className="px-4">
           <MDBRow>
             <MDBCol className=" align-items-center">
               <p className="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">
-               Phieu giao hang
+              Phiếu giao hàng
               </p>
               <MDBRow>
                 <MDBCol md="6">
                   <MDBInput
                     wrapperClass="mb-4"
-                    label="InventoryID"
+                    label="Mã kho"
                     size="lg"
                     id="form1"
                     type="text"
@@ -70,21 +104,24 @@ export default function AddTicket() {
                     onChange={(e) => setShipper(e.target.value)}
                   />
                 </MDBCol>
-                <MDBCol md="6">
+                {/* <MDBCol md="6">
                   <MDBInput
+                   
                     wrapperClass="mb-4"
-                    label="Status"
+                    label="Trạng thái"
                     size="lg"
                     id="form1"
                     type="text"
-                    value={"Cho thanh toan"}
+                    value={status}
                     onChange={(e) => setStatus(e.target.value)}
+                  
                   />
-                </MDBCol>
+                
+                </MDBCol> */}
                 <MDBCol md="6">
                   <MDBInput
                     wrapperClass="mb-4"
-                    label="Created date"
+                    label="Ngày tạo"
                     size="lg"
                     id="form1"
                     type="date"
@@ -93,12 +130,11 @@ export default function AddTicket() {
                   />
                 </MDBCol>
               </MDBRow>
-             
 
               <MDBRow>
                 <MDBCol className=" align-items-center">
                   <Button className="mb-4" size="lg" onClick={saveData}>
-                   Lưu
+                    Lưu
                   </Button>
                 </MDBCol>
               </MDBRow>
@@ -107,5 +143,5 @@ export default function AddTicket() {
         </MDBCardBody>
       </MDBCard>
     </MDBContainer>
-    );
+  );
 }
