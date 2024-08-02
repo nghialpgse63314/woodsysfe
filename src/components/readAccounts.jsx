@@ -1,8 +1,8 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import { get, getDatabase, ref, remove } from "firebase/database";
 import { useEffect, useState } from "react";
-import { Container, Table } from "react-bootstrap";
-// import { useNavigate } from "react-router-dom";
+import { Button, Container, Table } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 import app, { auth } from "../config/firebase";
 // import DataComponent from "./filter";
 //  import PaginationComponent from "../components/pagination";
@@ -26,7 +26,7 @@ function ReadAccount() {
   const npage = Math.ceil(filteredData.length / recordsPerPage);
   const numbers = [...Array(npage + 1).keys()].slice(1);
 
-  // const navigate = useNavigate();
+   const navigate = useNavigate();
   const [totalItems, setTotalItems] = useState(0);
   //get data
   useEffect(() => {
@@ -140,7 +140,7 @@ function ReadAccount() {
         </MDBCol>
       </MDBRow>
       <h1 className="text-center">Tài khoản</h1>
-      <h4> User Logged In:{user?.email} </h4>
+      {/* <h4> User Logged In:{user?.email} </h4> */}
       {/* <button className="button1" onClick={() => navigate("/add")}>
         ADD DATA
       </button> */}
@@ -157,6 +157,8 @@ function ReadAccount() {
           onChange={(e) => setFilter(e.target.value)}
           placeholder="Lọc theo email"
         />
+       {/* <a href="/createaccount">Tạo tài khoản</a> */}
+       <Button style={{marginBottom:"10px"}} onClick={() => navigate('/createaccount')}>Tạo tài khoản</Button>
         {/* {filteredData.map(item => (
         <div key={item.id}>{item.productName}</div>
       ))} */}
@@ -171,7 +173,7 @@ function ReadAccount() {
             <th>Name</th>
             <th>Phone</th>
             <th>Password</th>
-            <th></th>
+            <th>Role</th>
           </tr>
         </thead>
         <tbody>
@@ -184,6 +186,7 @@ function ReadAccount() {
                 <td>{item.name}</td>
                 <td>{item.phone}</td>
                 <td>{item.password}</td>
+                <td>{item.role}</td>
                 <button
                   style={{ width: "80px" }}
                   className="button1"

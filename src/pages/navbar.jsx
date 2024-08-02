@@ -18,6 +18,7 @@ import {
 } from "react-router-dom";
 import Logo from "../assets/images/wologo.png";
 import Add from "../components/adddata";
+import CreateAccount from "../components/createAccounts";
 import AddTicket from "../components/deliveryTicket";
 import ReadOrders from "../components/orderandordedetail";
 import UpdateRead from "../components/read";
@@ -163,6 +164,7 @@ function NavBar() {
             <Route exact path="/statistic" element={<ReadStatistic/>} />
             <Route exact path="/ticket" element={<AddTicket />} />
             <Route exact path="/readticket" element={<ReadTickets />} />
+            <Route exact path="/createaccount" element={<CreateAccount />} />
             <Route path="/updatewrite/:firebaseId" element={ <UpdateWrite /> } />
           </Routes>
         </Router>

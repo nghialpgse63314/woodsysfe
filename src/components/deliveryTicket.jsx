@@ -10,23 +10,17 @@ import {
 } from "mdb-react-ui-kit";
 import { useState } from "react";
 import { Button } from "react-bootstrap";
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import app from "../config/firebase";
 
 export default function AddTicket() {
-  // const navigate = useNavigate();
-
+ const navigate = useNavigate();
   const [inventoryID, setInventoryID] = useState("");
     // const [status, setStatus] = useState("");
   const [shipper, setShipper] = useState("");
   const [createdDate, setCreatedDate] = useState("");
-
-
-
   const saveData = async () => {
-    // const statusData = {
-    //       status: 'Chờ thanh toán'
-    //      };
+
     const db = getDatabase(app);
     const newDocRef = push(ref(db, "Ticket"));
     set(newDocRef, {
@@ -36,40 +30,15 @@ export default function AddTicket() {
       createdDate: createdDate,
     })
       .then(() => {
-
         alert("data save successfully");
+      
       })
       .catch((error) => {
         alert("error", error.message);
       });
+     navigate('/readticket');
   };
  
-  // const addData = async() =>{
-  //   const statusData = {
-  //     status: 'Chờ thanh toán'
-  //    };
-   
-  //   const db = getDatabase(app);
-  //   const newDocRef = push(ref(db, "Ticket"));
-  //   set(newDocRef, statusData, {
-  //     inventoryID: inventoryID,
-  //         shipper: shipper,
-  //         createdDate: createdDate,
-  //   })
-  //   .then(() => {
-  //     alert("data save successfully");
-  //   })
-  //   .catch((error) => {
-  //     console.error('Error writing data: ', error);
-  //   });
-  // }
-
-
-
-
-
-
-
 
   return (
     <MDBContainer>
