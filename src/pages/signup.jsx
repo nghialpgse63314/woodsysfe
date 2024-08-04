@@ -1,6 +1,6 @@
 import "bootstrap-icons/font/bootstrap-icons.css";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { getDatabase, push, ref, set } from "firebase/database";
+import { getDatabase, ref, set } from "firebase/database";
 import {
   MDBCard,
   MDBCardBody,
@@ -70,32 +70,54 @@ function App() {
   //     window.location.reload(navigate("/"));
   // }
 
-  const register = async () => {
-    try {
-      const user = await createUserWithEmailAndPassword(
-        auth,
-        email,
-        password,
-      );
-      const db = getDatabase(app);
-      const newDocRef = push(ref(db, "Customers/"));
-      set(newDocRef, {
-          name: name,
-          phone: phone,
-          address: address,
-          email: email,
-          password: password
-      }).then( () => {
-          alert("data save successfully")
+  // const register = async () => {
+  //   try {
+  //     const user = await createUserWithEmailAndPassword(
+  //       auth,
+  //       email,
+  //       password,
+  //     );
+  //     const db = getDatabase(app);
+  //     const newDocRef = push(ref(db, "Customers/"));
+  //     set(newDocRef, {
+  //         name: name,
+  //         phone: phone,
+  //         address: address,
+  //         email: email,
+  //         password: password
+  //     }).then( () => {
+  //         alert("data save successfully")
        
-      }).catch((error) => {
-          alert("error", error.message)
-      })
-      alert("Account created successfully!");
-      navigate("/");
-      console.log(user);
+  //     }).catch((error) => {
+  //         alert("error", error.message)
+  //     })
+  //     alert("Account created successfully!");
+  //     navigate("/");
+  //     console.log(user);
+  //   } catch (error) {
+  //     console.log(error.message);
+  //   }
+  // };
+
+  const handleRegister = async (e) => {
+    e.preventDefault();
+    try {
+      const db = getDatabase(app);
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
+      await set(ref(db, 'Customers/' + user.uid), {
+        email: user.email,
+        uid: user.uid,
+        name: name,
+        phone: phone,
+        address: address,
+        password: password,
+      });
+
+      alert("Tạo tài khoản thành công");
+      navigate("/accounts");
     } catch (error) {
-      console.log(error.message);
+      console.log(error);
     }
   };
 
@@ -182,7 +204,7 @@ function App() {
                 </MDBCol>
               </MDBRow>
 
-              <Button className="mb-4" size="lg" onClick={register}>
+              <Button className="mb-4" size="lg" onClick={handleRegister}>
                Đăng ký          
               </Button>
               <p className="mb-0 text-center">

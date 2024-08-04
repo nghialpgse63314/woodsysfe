@@ -58,6 +58,7 @@ function App() {
       navigate("/");
     } catch (err) {
       console.error(err);
+      alert("Sai email hoặc mật khẩu");
     }
 
   };
@@ -75,7 +76,8 @@ function App() {
 
   return (
     <MDBContainer fluid>
-      <MDBRow className="d-flex justify-content-center align-items-center h-100">
+     
+      <MDBRow className="d-flex justify-content-center align-items-center h-100" >
       {/* <h4> User Logged In: </h4>
       {user?.email}
       */}
@@ -94,6 +96,7 @@ function App() {
                 id="formControlEmail"
                 type="email"
                 size="lg"
+               
                 onChange={(e) => setEmail(e.target.value)}
               />
               <MDBInputGroup>
@@ -104,6 +107,7 @@ function App() {
                   id="formControlPassword"
                   type={passwordShown}
                   value={password}
+       
                   onChange={(e) => setPassword(e.target.value)}
                 >
                   <MDBIcon
@@ -121,7 +125,7 @@ function App() {
                 className="mb-4"
                 label="Ghi nhớ mật khẩu"
               />
-
+              
               <Button onClick={signIn}>Login</Button>
               {/* <Button onClick={logout}>Logout</Button> */}
               <hr className="my-4" />
@@ -141,6 +145,8 @@ function App() {
           </MDBCard>
         </MDBCol>
       </MDBRow>
+
+      
     </MDBContainer>
   );
 }

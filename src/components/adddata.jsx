@@ -1,12 +1,12 @@
 import { getDatabase, push, ref, set } from "firebase/database";
 import {
-    MDBCard,
-    MDBCardBody,
-    MDBCol,
-    MDBContainer,
-    MDBInput,
-    MDBRow,
-    MDBTextArea,
+  MDBCard,
+  MDBCardBody,
+  MDBCol,
+  MDBContainer,
+  MDBInput,
+  MDBRow,
+  MDBTextArea,
 } from "mdb-react-ui-kit";
 import { useState } from "react";
 import { Button } from "react-bootstrap";
@@ -23,6 +23,7 @@ export default function Add() {
   const [thickness, setThickness] = useState("");
   const [width, setWidth] = useState("");
   const [image, setImage] = useState("");
+  const [weight, setWeight] = useState("");
 
 
     const saveData = async () => {
@@ -36,7 +37,8 @@ export default function Add() {
             description : description,
             length : length,
             width : width,
-            thickness : thickness
+            thickness : thickness,
+            weight: weight
         }).then( () => {
             alert("data save successfully")
         }).catch((error) => {
@@ -126,6 +128,17 @@ export default function Add() {
                     type="number"
                     value={thickness}
                     onChange={(e) => setThickness(e.target.value)}
+                  ></MDBInput>
+                </MDBCol>
+                <MDBCol md="6">
+                  <MDBInput
+                    wrapperClass="mb-4"
+                    label="Cân nặng"
+                    size="lg"
+                    id="form1"
+                    type="number"
+                    value={weight}
+                    onChange={(e) => setWeight(e.target.value)}
                   ></MDBInput>
                 </MDBCol>
               </MDBRow>

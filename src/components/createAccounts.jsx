@@ -1,16 +1,16 @@
 import "bootstrap-icons/font/bootstrap-icons.css";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { getDatabase, push, ref, set } from "firebase/database";
+import { getDatabase, ref, set } from "firebase/database";
 import {
-    MDBCard,
-    MDBCardBody,
-    MDBCardImage,
-    MDBCol,
-    MDBContainer,
-    MDBIcon,
-    MDBInput,
-    MDBInputGroup,
-    MDBRow,
+  MDBCard,
+  MDBCardBody,
+  MDBCardImage,
+  MDBCol,
+  MDBContainer,
+  MDBIcon,
+  MDBInput,
+  MDBInputGroup,
+  MDBRow,
 } from "mdb-react-ui-kit";
 import { useState } from "react";
 import { Button } from "react-bootstrap";
@@ -23,6 +23,7 @@ function App() {
   const navigate = useNavigate();
   const [validated, setValidated] = useState(false);
   const [name, setName] = useState("");
+
   const [phone, setPhone] = useState("");
   const [address, setAddress] = useState("");
   const [email, setEmail] = useState("");
@@ -71,35 +72,61 @@ function App() {
   //     window.location.reload(navigate("/"));
   // }
 
-  const register = async () => {
-    try {
-      const user = await createUserWithEmailAndPassword(
-        auth,
-        email,
-        password,
-      );
-      const db = getDatabase(app);
-      const newDocRef = push(ref(db, "Customers/"));
-      set(newDocRef, {
-          name: name,
-          phone: phone,
-          address: address,
-          email: email,
-          password: password,
-          role:role
-      }).then( () => {
-          alert("data save successfully")
+  // const register = async () => {
+  //   try {
+  //     const userCredential  = await createUserWithEmailAndPassword(
+  //       auth,
+  //       email,
+  //       password,
+  //     );
+  //     // const user = userCredential.user;
+  //     const db = getDatabase(app);
+  //     const newDocRef = push(ref(db, "Customers/"));
+  //     set(newDocRef, {
+          
+  //         name: name,
+  //         phone: phone,
+  //         address: address,
+  //         email: email,
+  //         password: password,
+  //         role:role
+  //     }).then( () => {
+  //         alert("data save successfully")
        
-      }).catch((error) => {
-          alert("error", error.message)
-      })
-      alert("Account created successfully!");
+  //     }).catch((error) => {
+  //         alert("error", error.message)
+  //     })
+  //     alert("Account created successfully!");
+  //     navigate("/accounts");
+  //     console.log(userCredential);
+  //   } catch (error) {
+  //     console.log(error.message);
+  //   }
+  // };
+
+  const handleRegister = async (e) => {
+    e.preventDefault();
+    try {
+      const db = getDatabase(app);
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
+      await set(ref(db, 'Customers/' + user.uid), {
+        email: user.email,
+        uid: user.uid,
+        name: name,
+        phone: phone,
+        address: address,
+        password: password,
+        role: role
+      });
+
+      alert("Tạo tài khoản thành công");
       navigate("/accounts");
-      console.log(user);
     } catch (error) {
-      console.log(error.message);
+      console.log(error);
     }
   };
+
 
   return (
     <MDBContainer style={{ width: 1500 }} >
@@ -194,7 +221,7 @@ function App() {
                 </MDBCol>
               </MDBRow>
 
-              <Button className="mb-4" size="lg" onClick={register}>
+              <Button className="mb-4" size="lg" onClick={handleRegister}>
                Lưu          
               </Button>
               <p className="mb-0 text-center">

@@ -40,7 +40,7 @@ function ReadAccount() {
         const temporaryArray = Object.keys(myData).map((myFireId) => {
           return {
             ...myData[myFireId],
-            customerId: myFireId,
+            uid: myFireId,
           };
         });
         setDataArray(temporaryArray);
@@ -164,16 +164,17 @@ function ReadAccount() {
       ))} */}
         {/* /*End of Filter */}
       </div>
-      <Table bordered striped variant="light">
+      <Table bordered variant="light">
         <thead>
           <tr>
             <th>#</th>
-            <th>Address</th>
-            <th>Email</th>
-            <th>Name</th>
-            <th>Phone</th>
-            <th>Password</th>
-            <th>Role</th>
+            <th style={{width:"100px"}}>Mã tài khoản</th>
+            <th style={{width:"100px"}}>Địa chỉ</th>
+            <th style={{width:"100px"}}>Email</th>
+            <th style={{width:"100px"}}>Tên</th>
+            <th style={{width:"120px"}}>Số điện thoại</th>
+            <th style={{width:"100px"}}>Mật khẩu</th>
+            <th style={{width:"100px"}}>Vai trò</th>
           </tr>
         </thead>
         <tbody>
@@ -181,20 +182,21 @@ function ReadAccount() {
             return (
               <tr key={index}>
                 <td>{index + firstIndex + 1}</td>
+                <td>{item.uid}</td>
                 <td>{item.address}</td>
                 <td>{item.email}</td>
                 <td>{item.name}</td>
                 <td>{item.phone}</td>
                 <td>{item.password}</td>
                 <td>{item.role}</td>
-                <button
+                <Button
                   style={{ width: "80px" }}
                   className="button1"
                   onClick={() => deleteAccount(item.customerId)}
                 >
                   {" "}
                   DELETE
-                </button>
+                </Button>
               </tr>
             );
           })}

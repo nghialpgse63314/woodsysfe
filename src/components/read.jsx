@@ -1,6 +1,6 @@
 import { get, getDatabase, ref, remove } from "firebase/database";
 import { useEffect, useState } from "react";
-import { Container, Table } from "react-bootstrap";
+import { Button, Container, Table } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import app, { auth } from "../config/firebase";
 // import DataComponent from "./filter";
@@ -106,7 +106,7 @@ const fetchTotalItems = async () => {
       style={{
         backgroundColor: "white",
         width: "1050",
-        height: "100vh",
+        height: "100%",
       }}
     >
          <MDBRow>
@@ -134,16 +134,16 @@ const fetchTotalItems = async () => {
         </MDBRow>
       <h1 className="text-center">Kho hàng</h1>
       {/* <h4> User Logged In:{user?.email} </h4> */}
-      <button className="button1" onClick={() => navigate("/add")}>
-        ADD DATA
-      </button>
+      <Button  style={{marginBottom:"10px"}} className="button1" onClick={() => navigate("/add")}>
+        Thêm sản phẩm
+      </Button>
       {/* <button className="button1" onClick={() => navigate("/")}>
         GO HOMEPAGE
       </button>{" "} */}
       <div>
       {/* /*Start of Filter */ }
       <div className='total-count'>
-      Total={totalItems}
+      Tổng sản phẩm: {totalItems}
       </div>
       <MDBInput
         type="text"
@@ -157,18 +157,19 @@ const fetchTotalItems = async () => {
       ))} */}
         {/* /*End of Filter */ }
     </div>
-      <Table bordered striped variant="light">
+      <Table bordered variant="light">
         <thead>
           <tr>
             <th>#</th>
-            <th>Image</th>
-            <th>Price</th>
-            <th>Name</th>
-            <th>Width</th>
-            <th>Length</th>
-            <th>Thickness</th>
-            <th>Description</th>
-            <th></th>
+            <th>Hình ảnh</th>
+            <th style={{width:"100px"}}>Giá</th>
+            <th style={{width:"100px"}}>Tên</th>
+            <th style={{width:"100px"}}>Chiều rộng</th>
+            <th style={{width:"100px"}}>Chiều dài</th>
+            <th style={{width:"100px"}}>Độ dày</th>
+            <th style={{width:"100px"}}>Cân nặng</th>
+            <th style={{width:"100px"}}>Mô tả</th>     
+            <th></th>   
           </tr>
         </thead>
         <tbody>
@@ -182,21 +183,20 @@ const fetchTotalItems = async () => {
                 <td>{item.width}</td>
                 <td>{item.length}</td>
                 <td>{item.thickness}</td>
+                <td>{item.weight}</td>
                 <td>{item.description}</td>
-                <button  style={{width:"80px"}}
+                <Button  style={{width:"100px"}}
                   className="button1"
                   onClick={() => navigate(`/updatewrite/${item.productId}`)}
-                >
-           
-                  UPDATE
-                </button>
-                <button style={{width:"80px"}}
+                >          
+                  Cập nhật
+                </Button>
+                <Button style={{width:"100px"}}
                   className="button1"
                   onClick={() => deleteProduct(item.productId)}
                 >
-                  {" "}
-                  DELETE
-                </button>
+                  Xóa
+                </Button>
               </tr>
             );
           })}

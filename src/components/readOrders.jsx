@@ -171,7 +171,7 @@ function ReadOrders({onSelect}) {
             <th>Mã đơn hàng</th>
             <th>Mã khách hàng</th>
             <th>Mã thanh toán</th>
-            {/* <th>Weight</th> */}
+            <th>Weight</th>
             <th>Giá</th>
             {/* <th>Order date</th>
             <th>Shipping date</th> */}
@@ -189,7 +189,7 @@ function ReadOrders({onSelect}) {
                 <td>{item.orderID}</td>
                 <td>{item.customerID}</td>
                 <td>{item.paymentID}</td>
-                {/* <td>{item.TotalWeight}</td> */}
+                <td>{item.TotalWeight}</td>
                 <td>{item.price}</td>
                 {/* <td>{item.OrderDate}</td>
                 <td>{item.ShippingDate}</td> */}
